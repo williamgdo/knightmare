@@ -1,0 +1,8 @@
+res://scenes/main.tscn
+res://scenes/player/player.tscn
+res://scenes/player/state_machine/Idle.gd
+res://scenes/player/PlayerState.gd
+res://scenes/player/Walk.gd
+res://scripts/state_machine/state.gd
+res://scenes/player/Attack.gd
+res://scenes/player/player.gd
