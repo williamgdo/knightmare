@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dy1007j50bos2"]
+[gd_scene load_steps=44 format=3 uid="uid://dy1007j50bos2"]
 
 [ext_resource type="Script" path="res://scenes/skeleton/skeleton.gd" id="1_pv8l7"]
 [ext_resource type="Texture2D" uid="uid://dxlcrkgmw73oc" path="res://art/characters/skeleton/full-sheet.png" id="2_13hpt"]
@@ -6,11 +6,13 @@
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/SkeletonStateMachine.gd" id="3_5bo5p"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="3_rbv7w"]
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/Idle.gd" id="4_b752f"]
+[ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_rt3o8"]
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/Wandering.gd" id="5_17gjr"]
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/Follow.gd" id="5_f3t8j"]
 [ext_resource type="Script" path="res://scenes/skeleton/Hit.gd" id="9_1eh2e"]
 [ext_resource type="Script" path="res://scenes/skeleton/Dead.gd" id="10_b3slt"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/health_changed_manager.tscn" id="10_mob7x"]
+[ext_resource type="Script" path="res://scenes/skeleton/Attack.gd" id="11_lihbp"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="12_o8hgw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ks1v"]
@@ -219,6 +221,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aert0"]
 size = Vector2(20, 59)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2k5t"]
+size = Vector2(51, 55)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k50u5"]
 radius = 8.0
 height = 22.0
@@ -234,7 +239,7 @@ position = Vector2(0, 5)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(19, -16)
 sprite_frames = SubResource("SpriteFrames_6k3qh")
-animation = &"hit"
+animation = &"idle"
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("3_rbv7w")]
 visible = false
@@ -246,6 +251,13 @@ health_component = NodePath("../../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Hurtbox"]
 position = Vector2(-2, 7.5)
 shape = SubResource("RectangleShape2D_aert0")
+
+[node name="AttackHitbox" parent="Marker2D" instance=ExtResource("4_rt3o8")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/AttackHitbox"]
+position = Vector2(40.5, 5.5)
+shape = SubResource("RectangleShape2D_q2k5t")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_nyat8")]
 
@@ -259,7 +271,7 @@ script = ExtResource("3_5bo5p")
 character = NodePath("..")
 animator = NodePath("../Marker2D/AnimatedSprite2D")
 label = NodePath("../DebugLabel")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Attack")
 
 [node name="Idle" type="Node" parent="SkeletonStateMachine"]
 script = ExtResource("4_b752f")
@@ -289,6 +301,9 @@ script = ExtResource("10_b3slt")
 wait_time = 3.0
 one_shot = true
 
+[node name="Attack" type="Node" parent="SkeletonStateMachine"]
+script = ExtResource("11_lihbp")
+
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
 offset_left = -76.0
@@ -309,10 +324,13 @@ offset_bottom = -6.0
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Hit" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Dead" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="on_hit" from="Marker2D/Hurtbox" to="SkeletonStateMachine/Hit" method="_on_hurtbox_on_hit"]
+[connection signal="area_entered" from="Marker2D/AttackHitbox" to="Marker2D/AttackHitbox" method="_on_area_entered"]
 [connection signal="died" from="HealthComponent" to="SkeletonStateMachine/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthTextOnHit" method="_on_health_component_health_changed"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
 [connection signal="timeout" from="SkeletonStateMachine/Wandering/WanderTimer" to="SkeletonStateMachine/Wandering" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="SkeletonStateMachine/Hit/Timer" to="SkeletonStateMachine/Hit" method="_on_timer_timeout"]
 [connection signal="timeout" from="SkeletonStateMachine/Dead/DespawnTimer" to="SkeletonStateMachine/Dead" method="_on_despawn_timer_timeout"]
+[connection signal="set_hitbox_monitoring" from="SkeletonStateMachine/Attack" to="Marker2D/AttackHitbox" method="_on_attack_set_hitbox_monitoring"]

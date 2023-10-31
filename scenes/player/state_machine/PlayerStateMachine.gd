@@ -1,12 +1,12 @@
 class_name PlayerStateMachine extends StateMachine
 
-@export var player: CharacterBody2D
+@export var character: CharacterBody2D
 @export var animator: AnimatedSprite2D
 
 
 func _ready():
 	var params = { 
-		"player" : player,
+		"character" : character,
 		"animator" : animator 
 	}
 	

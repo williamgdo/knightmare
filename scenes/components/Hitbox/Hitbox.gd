@@ -26,6 +26,7 @@ func _on_area_entered(area):
 		var direction_to_hurtbox = (area.global_position - get_parent().global_position)
 		area.hit(damage, direction_to_hurtbox)
 
+
 func _on_attack_set_hitbox_monitoring(value: bool):
 #	print("changed monitoring to " + str(value))'
 	_set_monitoring(value)

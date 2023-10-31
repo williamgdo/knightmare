@@ -1,5 +1,4 @@
-extends SkeletonState
-
+extends PlayerState
 
 @export var knockback_multiplier: float = 5
 
@@ -12,8 +11,9 @@ var knockback_direction: Vector2
 
 
 func on_enter_state():
+	character.velocity = Vector2.ZERO
 	timer.start()
-	animator.play("hit")
+	animator.play("hit-1")
 
 
 func on_exit_state():
@@ -34,7 +34,7 @@ func on_physics_update(delta):
 
 
 func _on_animated_sprite_2d_animation_finished():
-	if animator.animation == "hit":
+	if animator.animation == "hit-1" || animator.animation == "hit-2":
 #		animator.stop()
 #		state_finished.emit(self, "idle")
 		pass
