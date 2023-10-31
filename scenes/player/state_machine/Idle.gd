@@ -2,7 +2,7 @@ extends PlayerState
 
 
 func on_process_update(_delta: float):
-	if player.velocity.length() > 0:
+	if character.velocity.length() > 0:
 		animator.stop()
 		state_finished.emit(self, "walk")
 	

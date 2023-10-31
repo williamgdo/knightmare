@@ -1,6 +1,12 @@
+res://scenes/components/UI
+res://scenes
+res://art/characters/skeleton
+res://art/characters/player
+res://art/characters/skeleton/attack/a
+res://art/characters/skeleton/walk
+res://art/characters/skeleton/idle
 res://art/characters/player/run
 res://art/characters/player/idle
 res://scenes/player/state_machine
 res://scripts
-res://scenes
 res://
