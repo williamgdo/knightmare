@@ -1,10 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://w2xsvx06pkhx"]
+[gd_scene load_steps=6 format=3 uid="uid://w2xsvx06pkhx"]
 
+[ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="1_17774"]
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="1_r263m"]
 [ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/skeleton/skeleton.tscn" id="2_7kst0"]
+[ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="2_gcop5"]
 
-[node name="Level" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
+size = Vector2(123, 117)
+
+[node name="Level" type="Node2D"]
+y_sort_enabled = true
+
+[node name="World" type="StaticBody2D" parent="."]
+
+[node name="Map-v2" type="Sprite2D" parent="World"]
+position = Vector2(1, 1)
+texture = ExtResource("1_17774")
+
+[node name="CollisionBottom" type="CollisionPolygon2D" parent="World"]
+visible = false
+polygon = PackedVector2Array(-508, -135, -499, -135, -499, 225, -339, 383, 342, 383, 501, 224, 501, -125, 507, -125, 507, 226, 343, 391, -348, 391, -509, 223)
+
+[node name="CollisionTop" type="CollisionPolygon2D" parent="World"]
+visible = false
+polygon = PackedVector2Array(-500, -133, -386, -233, -384, -232, -383, -203, -351, -203, -351, -228, -66, -228, -66, -188, 55, -188, 55, -228, 87, -227, 212, -227, 341, -227, 341, -208, 375, -208, 375, -234, 499, -123, 500, -275, 374, -343, -388, -342, -501, -278)
+
+[node name="CollisionPit" type="CollisionShape2D" parent="World"]
+visible = false
+position = Vector2(-6.5, 30.5)
+shape = SubResource("RectangleShape2D_pus7h")
+
+[node name="Pillar" parent="." instance=ExtResource("2_gcop5")]
+z_index = 1
+position = Vector2(-483, -120)
+collision_mask = 3
+
+[node name="Pillar2" parent="." instance=ExtResource("2_gcop5")]
+z_index = 1
+position = Vector2(-483, 175)
+collision_mask = 3
+
+[node name="Pillar3" parent="." instance=ExtResource("2_gcop5")]
+z_index = 1
+position = Vector2(-323, 335)
+collision_mask = 3
+
+[node name="Pillar4" parent="." instance=ExtResource("2_gcop5")]
+z_index = 1
+position = Vector2(322, 334)
+collision_mask = 3
+
+[node name="Pillar5" parent="." instance=ExtResource("2_gcop5")]
+z_index = 1
+position = Vector2(485, 175)
+collision_mask = 3
+
+[node name="Pillar6" parent="." instance=ExtResource("2_gcop5")]
+z_index = 2
+position = Vector2(485, -116)
+collision_mask = 3
 
 [node name="player" parent="." instance=ExtResource("1_r263m")]
+z_index = 1
+position = Vector2(-45, -121)
 
 [node name="skeleton" parent="." instance=ExtResource("2_7kst0")]
+z_index = 1
+position = Vector2(92, -127)
+metadata/_edit_group_ = true
+
+[node name="SkeletonStateMachine" parent="skeleton" index="3" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Wandering")
+
+[node name="skeleton2" parent="." instance=ExtResource("2_7kst0")]
+z_index = 1
+position = Vector2(-190, -119)
+metadata/_edit_group_ = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[editable path="skeleton"]

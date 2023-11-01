@@ -11,3 +11,7 @@ res://scenes/skeleton/skeleton.gd
 res://scenes/components/UI/health_bar.gd
 res://scenes/components/Hitbox/Hitbox.gd
 res://scenes/components/Hurtbox/Hurtbox.gd
+res://scenes/player/player.gd
+res://scenes/components/UI/health_bar.tscn
+res://scenes/main.tscn
+res://scenes/object/pillar.tscn

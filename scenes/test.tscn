@@ -1,20 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://rnoj2n41dkrm"]
+[gd_scene load_steps=2 format=3 uid="uid://rnoj2n41dkrm"]
 
-[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="1_l0hq4"]
-[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/skeleton/skeleton.tscn" id="2_mxspl"]
+[ext_resource type="Texture2D" uid="uid://b42bh2fosbsb" path="res://art/map/props-pilar.png" id="4_fwn7n"]
 
-[node name="Level" type="Node"]
+[node name="Level2" type="Node"]
 
-[node name="player" parent="." instance=ExtResource("1_l0hq4")]
-position = Vector2(98, 98)
-
-[node name="skeleton" parent="." instance=ExtResource("2_mxspl")]
-position = Vector2(281, 95)
-
-[node name="skeleton2" parent="." instance=ExtResource("2_mxspl")]
-position = Vector2(148, 101)
-
-[node name="SkeletonStateMachine" parent="skeleton2" index="3" node_paths=PackedStringArray("initial_state")]
-initial_state = NodePath("Wandering")
-
-[editable path="skeleton2"]
+[node name="Props-pilar" type="Sprite2D" parent="."]
+texture = ExtResource("4_fwn7n")
