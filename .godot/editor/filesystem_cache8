@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1698806005
+::res://::1699395754
 ::res://art/::1698798231
 icon.svg::CompressedTexture2D::2768454020018049821::1698036470::1698186385::1::::<><>::
 poco-sheet.png::CompressedTexture2D::7386671137942481306::1698798017::1698798231::1::::<><>::
@@ -184,7 +184,7 @@ walk-4.png::CompressedTexture2D::2499147059588767844::1551115675::1698284030::1:
 walk-5.png::CompressedTexture2D::7365515430873541717::1551115673::1698284030::1::::<><>::
 walk-6.png::CompressedTexture2D::734888937869709288::1551115670::1698284030::1::::<><>::
 walk-sheet.png::CompressedTexture2D::7638456415690960332::1698284378::1698284381::1::::<><>::
-::res://art/map/::1698807196
+::res://art/map/::1698839656
 map-v1.png::CompressedTexture2D::6953527272811163779::1698761245::1698806002::1::::<><>::
 map-v2.png::CompressedTexture2D::3661834476043750808::1698807114::1698807202::1::::<><>::
 pilar.png::CompressedTexture2D::1622774041368180514::1698807196::1698807202::1::::<><>::
@@ -224,8 +224,8 @@ wooden.png::CompressedTexture2D::3656718291362951246::1669967699::1698185991::1:
 walls.png::CompressedTexture2D::6212112108081600314::1669967699::1698185991::1::::<><>::
 wooden_door.png::CompressedTexture2D::8683812234657925362::1669967699::1698185991::1::::<><>::
 wooden_door_b.png::CompressedTexture2D::5057352699143652455::1669967699::1698185991::1::::<><>::
-::res://scenes/::1698806964
-main.tscn::PackedScene::1601322534219011189::1698806964::0::1::::<><>::uid://bsf2446eo725q::::res://art/map/map-v2.png<>uid://8742d4n8hetw::::res://scenes/player/player.tscn<>uid://dy1007j50bos2::::res://scenes/skeleton/skeleton.tscn<>uid://b42bh2fosbsb::::res://art/map/props-pilar.png
+::res://scenes/::1698809906
+main.tscn::PackedScene::1601322534219011189::1698809906::0::1::::<><>::uid://bsf2446eo725q::::res://art/map/map-v2.png<>uid://8742d4n8hetw::::res://scenes/player/player.tscn<>uid://dy1007j50bos2::::res://scenes/skeleton/skeleton.tscn<>uid://c1vq6n1wjkkyg::::res://scenes/object/pillar.tscn
 test.tscn::PackedScene::1220914802258615566::1698805856::0::1::::<><>::uid://b42bh2fosbsb::::res://art/map/props-pilar.png
 ::res://scenes/components/::1698629533
 ::res://scenes/components/Health/::1698744760
@@ -246,12 +246,14 @@ health_changed_label.gd::GDScript::-1::1698635181::0::1::::<>Label<>::
 health_changed_label.tscn::PackedScene::8847202664729114846::1698635537::0::1::::<><>::res://scenes/components/UI/health_changed_label.gd
 health_changed_manager.gd::GDScript::-1::1698737097::0::1::::<>Control<>::
 health_changed_manager.tscn::PackedScene::3108388217325505504::1698737615::0::1::::<><>::res://scenes/components/UI/health_changed_manager.gd<>uid://dybweunwncb8y
-::res://scenes/player/::1698806964
+::res://scenes/object/::1698809906
+pillar.tscn::PackedScene::6642130790286093054::1698809906::0::1::::<><>::uid://xec37gj2770a::::res://art/map/pilar.png
+::res://scenes/player/::1698809906
 Dead.gd::GDScript::-1::1698745905::0::1::::<>PlayerState<>::
 Hit.gd::GDScript::-1::1698800390::0::1::::<>PlayerState<>::
 Label.gd::GDScript::-1::1698644690::0::1::::<>Label<>::
 player.gd::GDScript::-1::1698800467::0::1::::Player<>CharacterBody2D<>::
-player.tscn::PackedScene::2384101140415059668::1698806964::0::1::::<><>::res://scenes/player/player.gd<>uid://bfuof21o1dsiw::::res://scenes/components/Health/Health.tscn<>uid://wgsiyuyfrk1v::::res://art/characters/player/attacks/attack-A1.png<>uid://dt7aiwjhlsjub::::res://art/characters/player/attacks/attack-A2.png<>uid://4wlg7qhlmlfb::::res://art/characters/player/attacks/attack-A3.png<>uid://b3n3opqxhe43p::::res://art/characters/player/attacks/attack-A4.png<>uid://bk01ca7cwl16c::::res://art/characters/player/attacks/attack-A5.png<>uid://ragkcibifroc::::res://art/characters/player/attacks/attack-A6.png<>uid://08vwcfugvvqr::::res://art/characters/player/attacks/attack-A7.png<>uid://x6m4dvx5opgh::::res://art/characters/player/full-sheet.png<>uid://cirmvtsdpf83q::::res://art/characters/player/dead-full.png<>uid://bt4l8rjjmlsyq::::res://scenes/components/Hitbox/Hitbox.tscn<>uid://rlve8bnp4w0w::::res://art/characters/player/full-sheet2.png<>uid://cnmifvpfdhy1o::::res://scenes/components/Hurtbox/Hurtbox.tscn<>res://scenes/player/state_machine/Walk.gd<>res://scenes/player/state_machine/Attack.gd<>res://scenes/player/Hit.gd<>res://scenes/player/Dead.gd<>uid://bd4ed6421phhl::::res://scenes/components/UI/health_bar.tscn<>res://scenes/player/state_machine/PlayerStateMachine.gd<>res://scenes/player/state_machine/Idle.gd<>res://scenes/player/Label.gd
+player.tscn::PackedScene::2384101140415059668::1698809906::0::1::::<><>::res://scenes/player/player.gd<>uid://bfuof21o1dsiw::::res://scenes/components/Health/Health.tscn<>uid://wgsiyuyfrk1v::::res://art/characters/player/attacks/attack-A1.png<>uid://dt7aiwjhlsjub::::res://art/characters/player/attacks/attack-A2.png<>uid://4wlg7qhlmlfb::::res://art/characters/player/attacks/attack-A3.png<>uid://b3n3opqxhe43p::::res://art/characters/player/attacks/attack-A4.png<>uid://bk01ca7cwl16c::::res://art/characters/player/attacks/attack-A5.png<>uid://ragkcibifroc::::res://art/characters/player/attacks/attack-A6.png<>uid://08vwcfugvvqr::::res://art/characters/player/attacks/attack-A7.png<>uid://x6m4dvx5opgh::::res://art/characters/player/full-sheet.png<>uid://cirmvtsdpf83q::::res://art/characters/player/dead-full.png<>uid://bt4l8rjjmlsyq::::res://scenes/components/Hitbox/Hitbox.tscn<>uid://rlve8bnp4w0w::::res://art/characters/player/full-sheet2.png<>uid://cnmifvpfdhy1o::::res://scenes/components/Hurtbox/Hurtbox.tscn<>res://scenes/player/state_machine/Walk.gd<>res://scenes/player/state_machine/Attack.gd<>res://scenes/player/Hit.gd<>res://scenes/player/Dead.gd<>uid://bd4ed6421phhl::::res://scenes/components/UI/health_bar.tscn<>res://scenes/player/state_machine/PlayerStateMachine.gd<>res://scenes/player/state_machine/Idle.gd<>res://scenes/player/Label.gd
 ::res://scenes/player/state_machine/::1698747074
 Attack.gd::GDScript::-1::1698747074::0::1::::<>PlayerState<>::
 Idle.gd::GDScript::-1::1698742764::0::1::::<>PlayerState<>::

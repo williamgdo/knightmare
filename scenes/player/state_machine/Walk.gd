@@ -11,3 +11,4 @@ func on_process_update(_delta: float):
 
 func on_enter_state():
 	animator.play("walk")
+#	audio.play("walk")
