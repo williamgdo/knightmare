@@ -1,3 +1,4 @@
+res://scripts
 res://scenes/object
 res://scenes
 res://art/characters/player
@@ -9,5 +10,4 @@ res://art/characters/skeleton/idle
 res://art/characters/player/run
 res://art/characters/player/idle
 res://scenes/player/state_machine
-res://scripts
 res://

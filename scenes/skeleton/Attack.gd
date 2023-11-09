@@ -24,4 +24,4 @@ func on_physics_update(_delta):
 func _on_animated_sprite_2d_animation_finished():
 	set_hitbox_monitoring.emit(false)
 #	animator.stop()
-	state_finished.emit(self, "attack")
+	state_finished.emit(self, "idle")

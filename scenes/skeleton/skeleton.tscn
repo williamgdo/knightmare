@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dy1007j50bos2"]
+[gd_scene load_steps=45 format=3 uid="uid://dy1007j50bos2"]
 
 [ext_resource type="Script" path="res://scenes/skeleton/skeleton.gd" id="1_pv8l7"]
 [ext_resource type="Texture2D" uid="uid://dxlcrkgmw73oc" path="res://art/characters/skeleton/full-sheet.png" id="2_13hpt"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_rt3o8"]
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/Wandering.gd" id="5_17gjr"]
 [ext_resource type="Script" path="res://scenes/skeleton/state_machine/Follow.gd" id="5_f3t8j"]
+[ext_resource type="Script" path="res://scenes/skeleton/CollisionShape2D.gd" id="6_o7jy4"]
 [ext_resource type="Script" path="res://scenes/skeleton/Hit.gd" id="9_1eh2e"]
 [ext_resource type="Script" path="res://scenes/skeleton/Dead.gd" id="10_b3slt"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/health_changed_manager.tscn" id="10_mob7x"]
@@ -265,6 +266,7 @@ shape = SubResource("RectangleShape2D_q2k5t")
 visible = false
 position = Vector2(0, 27)
 shape = SubResource("CapsuleShape2D_k50u5")
+script = ExtResource("6_o7jy4")
 
 [node name="SkeletonStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animator", "label", "initial_state")]
 script = ExtResource("3_5bo5p")
@@ -327,6 +329,7 @@ offset_bottom = -6.0
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="on_hit" from="Marker2D/Hurtbox" to="SkeletonStateMachine/Hit" method="_on_hurtbox_on_hit"]
 [connection signal="area_entered" from="Marker2D/AttackHitbox" to="Marker2D/AttackHitbox" method="_on_area_entered"]
+[connection signal="died" from="HealthComponent" to="CollisionShape2D" method="_on_health_component_died"]
 [connection signal="died" from="HealthComponent" to="SkeletonStateMachine/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthTextOnHit" method="_on_health_component_health_changed"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]

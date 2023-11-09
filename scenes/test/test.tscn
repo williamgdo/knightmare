@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx3p8qoiqls2f"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_hvw7b"]
+[ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_py70w"]
+[ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_oqo7a"]
+[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_4uvlp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
+size = Vector2(123, 117)
+
+[node name="Level" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_hvw7b")
+
+[node name="World" type="StaticBody2D" parent="."]
+
+[node name="Map-v2" type="Sprite2D" parent="World"]
+position = Vector2(1, 1)
+texture = ExtResource("2_py70w")
+
+[node name="CollisionBottom" type="CollisionPolygon2D" parent="World"]
+visible = false
+polygon = PackedVector2Array(-508, -135, -499, -135, -499, 225, -339, 383, 342, 383, 501, 224, 501, -125, 507, -125, 507, 226, 343, 391, -348, 391, -509, 223)
+
+[node name="CollisionTop" type="CollisionPolygon2D" parent="World"]
+visible = false
+polygon = PackedVector2Array(-500, -133, -386, -233, -384, -232, -383, -203, -351, -203, -351, -228, -66, -228, -66, -188, 55, -188, 55, -228, 87, -227, 212, -227, 341, -227, 341, -208, 375, -208, 375, -234, 499, -123, 500, -275, 374, -343, -388, -342, -501, -278)
+
+[node name="CollisionPit" type="CollisionShape2D" parent="World"]
+visible = false
+position = Vector2(-6.5, 30.5)
+shape = SubResource("RectangleShape2D_pus7h")
+
+[node name="Pillar" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(-483, -120)
+collision_mask = 3
+
+[node name="Pillar2" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(-483, 175)
+collision_mask = 3
+
+[node name="Pillar3" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(-323, 335)
+collision_mask = 3
+
+[node name="Pillar4" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(322, 334)
+collision_mask = 3
+
+[node name="Pillar5" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(485, 175)
+collision_mask = 3
+
+[node name="Pillar6" parent="." instance=ExtResource("3_oqo7a")]
+z_index = 1
+position = Vector2(481, -122)
+collision_mask = 3
+
+[node name="player" parent="." instance=ExtResource("4_4uvlp")]
+z_index = 1
+position = Vector2(-45, -121)

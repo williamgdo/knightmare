@@ -1,5 +1,14 @@
-res://scenes/player/player.tscn
-res://scenes/player/state_machine/Idle.gd
 res://scenes/main.tscn
+res://scenes/main.gd
+res://scripts/global.gd
+res://scenes/player/player.gd
+res://scenes/player/player.tscn
 res://scenes/object/pillar.tscn
 res://scenes/skeleton/skeleton.tscn
+res://scenes/skeleton/state_machine/Follow.gd
+res://scenes/skeleton/state_machine/Idle.gd
+res://scenes/skeleton/Attack.gd
+res://scenes/skeleton/CollisionShape2D.gd
+res://scenes/test/test.tscn
+res://scenes/level/main.tscn
+res://scenes/level/level.tscn

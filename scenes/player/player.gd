@@ -11,6 +11,14 @@ class_name Player extends CharacterBody2D
 var direction
 
 
+func _ready():
+	Global.player = self
+
+
+func _exit_tree():
+	Global.player = null
+
+
 func _process(_delta):
 	if(direction.x > 0):
 		marker.scale.x = 1
@@ -32,3 +40,7 @@ func player_movement(delta):
 	velocity = velocity.move_toward(direction * SPEED, ACCEL)
 
 	move_and_slide()
+
+
+func isDead():
+	return $HealthComponent.isDead

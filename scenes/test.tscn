@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://rnoj2n41dkrm"]
-
-[ext_resource type="Texture2D" uid="uid://b42bh2fosbsb" path="res://art/map/props-pilar.png" id="4_fwn7n"]
-
-[node name="Level2" type="Node"]
-
-[node name="Props-pilar" type="Sprite2D" parent="."]
-texture = ExtResource("4_fwn7n")

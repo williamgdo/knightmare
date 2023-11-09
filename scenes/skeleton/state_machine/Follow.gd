@@ -1,9 +1,5 @@
 extends SkeletonState
 
-@export var target: CharacterBody2D
-
-#func on_enter_state():
-
 func on_process_update(_delta):
 #	label.text = "%.2f %s %.2f" % [wander_time, is_waiting, timer.get_time_left()]
 #	label.text = "%.2f %.2f %.2f" % [character.velocity.length(), character.velocity.x, character.velocity.y]
@@ -15,12 +11,16 @@ func on_process_update(_delta):
 
 
 func on_physics_update(_delta):
-	if !target:
+	if Global.player == null || Global.player.isDead():
+		state_finished.emit(self, "wandering")
 		return 
 	
-	var direction = target.global_position - character.global_position
+	var vector_to_player = Global.player.global_position - character.global_position
+
+	if vector_to_player.length() < 50:
+		state_finished.emit(self, "attack")
+
+	character.direction = vector_to_player.normalized()
 	
-	if direction.length() > 25:
-		character.velocity = direction.normalized() * character.SPEED
-	else:
-		character.velocity = Vector2.ZERO
+	character.velocity = character.direction * character.SPEED 
+	character.move_and_slide()
