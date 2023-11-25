@@ -4,10 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_twjis"]
 [ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_qi1v5"]
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_dd2aj"]
-[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/skeleton/skeleton.tscn" id="5_uoglg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
+
+[sub_resource type="Curve2D" id="Curve2D_7kd0v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -443, -18, 0, 0, 0, 0, -413, -68, 0, 0, 0, 0, -419, -120, 0, 0, 0, 0, -384, -156, 0, 0, 0, 0, -319, -160, 0, 0, 0, 0, -244, -180, 0, 0, 0, 0, -159, -190, 0, 0, 0, 0, -85, -164, 0, 0, 0, 0, -10, -158, 0, 0, 0, 0, 47, -160, 0, 0, 0, 0, 159, -199, 0, 0, 0, 0, 248, -197, 0, 0, 0, 0, 388, -177, 0, 0, 0, 0, 432, -86, 0, 0, 0, 0, 456, -34, 0, 0, 0, 0, 466, 40, 0, 0, 0, 0, 458, 108, 0, 0, 0, 0, 431, 189, 0, 0, 0, 0, 430, 246, 0, 0, 0, 0, 400, 264, 0, 0, 0, 0, 348, 277, 0, 0, 0, 0, 297, 290, 0, 0, 0, 0, 258, 324, 0, 0, 0, 0, 198, 344, 0, 0, 0, 0, 109, 356, 0, 0, 0, 0, 21, 353, 0, 0, 0, 0, -71, 353, 0, 0, 0, 0, -181, 351, 0, 0, 0, 0, -245, 345, 0, 0, 0, 0, -308, 317, 0, 0, 0, 0, -397, 266, 0, 0, 0, 0, -432, 200, 0, 0, 0, 0, -449, 148, 0, 0, 0, 0, -447, 28, 0, 0, 0, 0, -443, -18)
+}
+point_count = 35
 
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
@@ -31,6 +36,13 @@ polygon = PackedVector2Array(-500, -133, -386, -233, -384, -232, -383, -203, -35
 visible = false
 position = Vector2(-6.5, 30.5)
 shape = SubResource("RectangleShape2D_pus7h")
+
+[node name="EnemySpawnPath" type="Path2D" parent="World"]
+curve = SubResource("Curve2D_7kd0v")
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="World/EnemySpawnPath"]
+position = Vector2(-443, -18)
+rotation = -1.03038
 
 [node name="Pillar" parent="." instance=ExtResource("3_qi1v5")]
 z_index = 1
@@ -63,20 +75,4 @@ position = Vector2(481, -122)
 collision_mask = 3
 
 [node name="player" parent="." instance=ExtResource("4_dd2aj")]
-z_index = 1
-position = Vector2(-45, -121)
-
-[node name="skeleton" parent="." instance=ExtResource("5_uoglg")]
-z_index = 1
-position = Vector2(92, -127)
-metadata/_edit_group_ = true
-
-[node name="SkeletonStateMachine" parent="skeleton" index="3" node_paths=PackedStringArray("initial_state")]
-initial_state = NodePath("Follow")
-
-[node name="skeleton2" parent="." instance=ExtResource("5_uoglg")]
-z_index = 1
-position = Vector2(-190, -119)
-metadata/_edit_group_ = true
-
-[editable path="skeleton"]
+position = Vector2(-90, 30)

@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx3p8qoiqls2f"]
+[gd_scene load_steps=7 format=3 uid="uid://cx3p8qoiqls2f"]
 
-[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_hvw7b"]
+[ext_resource type="Script" path="res://scenes/test/test.gd" id="1_ttrp8"]
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_py70w"]
 [ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_oqo7a"]
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_4uvlp"]
+[ext_resource type="PackedScene" uid="uid://c4ksbahx7vc75" path="res://scenes/slime/slime.tscn" id="7_55hxp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
 
-[node name="Level" type="Node2D"]
+[node name="TestLevel" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_hvw7b")
+script = ExtResource("1_ttrp8")
 
 [node name="World" type="StaticBody2D" parent="."]
 
@@ -62,5 +63,7 @@ position = Vector2(481, -122)
 collision_mask = 3
 
 [node name="player" parent="." instance=ExtResource("4_4uvlp")]
-z_index = 1
 position = Vector2(-45, -121)
+
+[node name="Slime" parent="." instance=ExtResource("7_55hxp")]
+position = Vector2(-142, 48)

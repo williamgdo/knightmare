@@ -28,5 +28,12 @@ func _on_area_entered(area):
 
 
 func _on_attack_set_hitbox_monitoring(value: bool):
+	_set_monitoring(value)
+
+func _on_attack_1_set_hitbox_monitoring(value):
+#	print("changed monitoring to " + str(value))'
+	_set_monitoring(value)
+
+func _on_attack_2_set_hitbox_monitoring(value):
 #	print("changed monitoring to " + str(value))'
 	_set_monitoring(value)
