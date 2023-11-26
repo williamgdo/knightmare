@@ -11,6 +11,10 @@ extends CharacterBody2D
 var direction: Vector2
 
 
+func _ready():
+	Global.check_default_nodes(self)
+
+
 func _process(_delta):
 	if(direction.x > 0):
 		marker.scale.x = 1

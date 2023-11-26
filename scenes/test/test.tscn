@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_py70w"]
 [ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_oqo7a"]
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_4uvlp"]
-[ext_resource type="PackedScene" uid="uid://c4ksbahx7vc75" path="res://scenes/slime/slime.tscn" id="7_55hxp"]
+[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/sword_skeleton/sword_skeleton.tscn" id="5_usj7v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
@@ -65,5 +65,11 @@ collision_mask = 3
 [node name="player" parent="." instance=ExtResource("4_4uvlp")]
 position = Vector2(-45, -121)
 
-[node name="Slime" parent="." instance=ExtResource("7_55hxp")]
-position = Vector2(-142, 48)
+[node name="SwordSkeleton" parent="." instance=ExtResource("5_usj7v")]
+position = Vector2(1, -126)
+metadata/_edit_group_ = true
+
+[node name="HealthComponent" parent="SwordSkeleton" index="2"]
+max_health = 9999.0
+
+[editable path="SwordSkeleton"]

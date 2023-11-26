@@ -1,6 +1,16 @@
-extends SkeletonState
+extends State
+
 
 @export var STAY_IDLE: bool = false
+
+
+func on_enter_state():
+	pass
+
+
+func on_exit_state():
+	pass
+
 
 func on_process_update(_delta):
 	animator.play("idle")

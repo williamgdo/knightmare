@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="3_nw4r6"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_mvyvw"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="5_okmnl"]
-[ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/health_changed_manager.tscn" id="6_eyrsc"]
+[ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="6_eyrsc"]
 [ext_resource type="Script" path="res://scenes/spear_skeleton/state_machine/SpearSkelStateMachine.gd" id="7_webkh"]
 [ext_resource type="Script" path="res://scenes/spear_skeleton/state_machine/Idle.gd" id="8_gh8y0"]
 [ext_resource type="Script" path="res://scenes/spear_skeleton/state_machine/Follow.gd" id="9_nw40e"]
@@ -328,7 +328,7 @@ offset_top = -31.0
 offset_right = 228.0
 offset_bottom = -4.0
 
-[node name="HealthChangedManager" parent="." instance=ExtResource("6_eyrsc")]
+[node name="DamageNumbers" parent="." instance=ExtResource("6_eyrsc")]
 offset_left = 8.0
 offset_top = -53.0
 offset_right = 67.0
@@ -385,7 +385,7 @@ script = ExtResource("13_tugwb")
 [connection signal="died" from="HealthComponent" to="Marker2D/Hurtbox" method="_on_health_component_died"]
 [connection signal="died" from="HealthComponent" to="SpearSkelSM/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
-[connection signal="health_changed" from="HealthComponent" to="HealthChangedManager" method="_on_health_component_health_changed"]
+[connection signal="health_changed" from="HealthComponent" to="DamageNumbers" method="_on_health_component_health_changed"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SpearSkelSM/Attack-1" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SpearSkelSM/Dead" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="on_hit" from="Marker2D/Hurtbox" to="SpearSkelSM/Hit" method="_on_hurtbox_on_hit"]

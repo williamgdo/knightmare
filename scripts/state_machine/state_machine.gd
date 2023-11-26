@@ -17,8 +17,8 @@ func _map_children_states(args: Dictionary = {}):
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
-			child.state_finished.connect(handle_change_state)
-			child.interrupt_state.connect(on_interrupt_state)
+			child.state_finished.connect(_handle_change_state)
+			child.interrupt_state.connect(_on_interrupt_state)
 
 			if args.is_empty() == false:
 				for key in args.keys():
@@ -28,9 +28,11 @@ func _map_children_states(args: Dictionary = {}):
 
 
 func _set_initial_state():
-	if initial_state:
+	if initial_state != null:
 		initial_state.on_enter_state()
 		current_state = initial_state
+	else:
+		push_error("StateMachine \"%s@%s\" doesn't have a initial state." % [self.name, owner.name])
 
 
 func _process(delta):
@@ -47,7 +49,7 @@ func check_if_can_move():
 	return current_state.can_move
 
 
-func handle_change_state(state, new_state_name: String):
+func _handle_change_state(state, new_state_name: String):
 	if state != current_state:
 		return
 	
@@ -63,5 +65,5 @@ func handle_change_state(state, new_state_name: String):
 	current_state = new_state
 
 
-func on_interrupt_state(new_state_name: String):
-	handle_change_state(current_state, new_state_name)
+func _on_interrupt_state(new_state_name: String):
+	_handle_change_state(current_state, new_state_name)

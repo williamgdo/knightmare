@@ -1,9 +1,9 @@
+Marker2D
 Node
 CollisionShape2D
 Timer
 Label
 AnimatedSprite2D
-Marker2D
 CharacterBody2D
 SpearSkelState
 StateMachine

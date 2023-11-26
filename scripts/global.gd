@@ -4,6 +4,7 @@ extends Node
 var root_node: Node = null
 var player: Player = null 
 
+const Z_INDEX_RANGE = 8
 
 func instantiate_node(node, position: Vector2, parent):
 	if root_node != null:
@@ -12,3 +13,7 @@ func instantiate_node(node, position: Vector2, parent):
 		node_instance.global_position = position
 		return node_instance
 
+
+func check_default_nodes(node: Node):
+	assert(node.get_node("FeetPosition") != null, "FeetPosition not defined in %s." % node.name)
+	assert(node.get_node("Marker2D") != null, "Marker2D not defined in %s." % node.name)

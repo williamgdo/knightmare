@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://scenes/slime/state_machine/Dead.gd" id="8_pv045"]
 [ext_resource type="Script" path="res://scenes/slime/state_machine/Attack.gd" id="11_1bj7f"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="12_dj1hu"]
-[ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/health_changed_manager.tscn" id="14_wgi2i"]
+[ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="14_wgi2i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oumoh"]
 atlas = ExtResource("1_dmwfk")
@@ -348,7 +348,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 7.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -393,9 +393,8 @@ script = ExtResource("1_5fq00")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(3, -42)
 sprite_frames = SubResource("SpriteFrames_swotu")
-animation = &"attack-1"
-frame = 9
-frame_progress = 1.0
+animation = &"idle"
+frame_progress = 0.863414
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("2_7a4qv")]
 collision_layer = 4
