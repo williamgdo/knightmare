@@ -5,9 +5,9 @@ signal interrupt_state(new_state_name: String)
 
 @export var can_move: bool = true
 
-#var character: CharacterBody2D
-#var animator: AnimatedSprite2D
-#var label: Label
+var character: CharacterBody2D
+var animator: AnimatedSprite2D
+var label: Label
 
 
 func on_enter_state() -> void:

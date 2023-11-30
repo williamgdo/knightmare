@@ -3,6 +3,8 @@ extends Node
 
 var root_node: Node = null
 var player: Player = null 
+var wave = 1
+var score = 0
 
 const Z_INDEX_RANGE = 8
 

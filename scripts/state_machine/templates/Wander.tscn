@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjvwpc0sp8dw6"]
+
+[ext_resource type="Script" path="res://scripts/state_machine/templates/Wander.gd" id="1_1qmfh"]
+
+[node name="Wander" type="Node"]
+script = ExtResource("1_1qmfh")
+
+[node name="WanderTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

@@ -4,5 +4,3 @@
 
 [node name="Idle" type="Node"]
 script = ExtResource("1_sofhq")
-STAY_IDLE = null
-can_move = null

@@ -1,15 +1,8 @@
 extends State
 
 
-@export var STAY_IDLE: bool = false
-
-
-func on_enter_state():
-	pass
-
-
-func on_exit_state():
-	pass
+@export var stay_idle: bool = false
+@export var range_to_follow: int = 300
 
 
 func on_process_update(_delta):
@@ -17,13 +10,13 @@ func on_process_update(_delta):
 
 
 func on_physics_update(_delta):
-	if STAY_IDLE:
+	if stay_idle:
 		return
 		
 	if Global.player == null || Global.player.isDead():
-		state_finished.emit(self, "wandering")
+		state_finished.emit(self, "wander")
 	else:
 		var vector_to_player = Global.player.global_position - character.global_position
 		
-		if vector_to_player.length() < 300:
+		if vector_to_player.length() < range_to_follow:
 			state_finished.emit(self, "follow")

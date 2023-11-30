@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1hfv0vpiq03n"]
+
+[ext_resource type="Script" path="res://scripts/state_machine/templates/Hit.gd" id="1_7q1nd"]
+
+[node name="Hit" type="Node"]
+script = ExtResource("1_7q1nd")
+
+[node name="Hitstun" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="timeout" from="Hitstun" to="." method="_on_hitstun_timeout"]

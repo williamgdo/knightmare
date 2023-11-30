@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://w2xsvx06pkhx"]
+[gd_scene load_steps=9 format=3 uid="uid://w2xsvx06pkhx"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_kgdkt"]
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_twjis"]
 [ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_qi1v5"]
-[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_dd2aj"]
+[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/characters/player/player.tscn" id="4_dd2aj"]
+[ext_resource type="PackedScene" uid="uid://dbol30ecitcvb" path="res://scenes/components/UI/HUD.tscn" id="5_jsxv5"]
+[ext_resource type="PackedScene" uid="uid://1f18j27gkjo" path="res://scenes/pause_menu/pause_menu.tscn" id="6_y2m4g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
@@ -76,3 +78,13 @@ collision_mask = 3
 
 [node name="player" parent="." instance=ExtResource("4_dd2aj")]
 position = Vector2(-90, 30)
+
+[node name="NewWaveTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HUD" parent="." instance=ExtResource("5_jsxv5")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_y2m4g")]
+
+[connection signal="timeout" from="NewWaveTimer" to="." method="_on_new_wave_timer_timeout"]

@@ -1,10 +1,4 @@
-#class_name State extends Node
-
-signal state_finished
-signal interrupt_state(new_state_name: String)
-
-@export var can_move: bool = true
-
+extends State
 
 func on_enter_state() -> void:
 	pass

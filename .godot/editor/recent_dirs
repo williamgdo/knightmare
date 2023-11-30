@@ -1,10 +1,11 @@
-res://scenes/slime/state_machine
-res://scenes/slime
+res://art
+res://scenes/pause_menu
+res://scenes/level
+res://scenes/characters/shield_skeleton/state_machine
+res://art/characters/shield
 res://art/characters/slime
 res://scenes/test
 res://art/characters/player
-res://scenes/player/state_machine
-res://scenes/spear_skeleton/state_machine
 res://art/characters/spear
 res://scripts
 res://scenes/object

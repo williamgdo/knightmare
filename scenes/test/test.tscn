@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cx3p8qoiqls2f"]
+[gd_scene load_steps=11 format=3 uid="uid://cx3p8qoiqls2f"]
 
 [ext_resource type="Script" path="res://scenes/test/test.gd" id="1_ttrp8"]
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_py70w"]
+[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/characters/sword_skeleton/sword_skeleton.tscn" id="3_dvkqr"]
 [ext_resource type="PackedScene" uid="uid://c1vq6n1wjkkyg" path="res://scenes/object/pillar.tscn" id="3_oqo7a"]
-[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/player/player.tscn" id="4_4uvlp"]
-[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/sword_skeleton/sword_skeleton.tscn" id="5_usj7v"]
+[ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/characters/player/player.tscn" id="4_4uvlp"]
+[ext_resource type="PackedScene" uid="uid://ht85nhfci0tk" path="res://scenes/characters/shield_skeleton/shield_skeleton.tscn" id="5_vnmil"]
+[ext_resource type="PackedScene" uid="uid://dbol30ecitcvb" path="res://scenes/components/UI/HUD.tscn" id="6_s5847"]
+[ext_resource type="PackedScene" uid="uid://1f18j27gkjo" path="res://scenes/pause_menu/pause_menu.tscn" id="7_3ilqg"]
+[ext_resource type="PackedScene" uid="uid://c0e4n4sslg6r8" path="res://scenes/game_over_menu/game_over_menu.tscn" id="8_p87np"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
@@ -18,6 +22,9 @@ script = ExtResource("1_ttrp8")
 [node name="Map-v2" type="Sprite2D" parent="World"]
 position = Vector2(1, 1)
 texture = ExtResource("2_py70w")
+
+[node name="SwordSkeleton" parent="World/Map-v2" instance=ExtResource("3_dvkqr")]
+position = Vector2(-167, -68)
 
 [node name="CollisionBottom" type="CollisionPolygon2D" parent="World"]
 visible = false
@@ -62,14 +69,15 @@ z_index = 1
 position = Vector2(481, -122)
 collision_mask = 3
 
+[node name="ShieldSkeleton" parent="." instance=ExtResource("5_vnmil")]
+position = Vector2(23, -104)
+
 [node name="player" parent="." instance=ExtResource("4_4uvlp")]
 position = Vector2(-45, -121)
 
-[node name="SwordSkeleton" parent="." instance=ExtResource("5_usj7v")]
-position = Vector2(1, -126)
-metadata/_edit_group_ = true
+[node name="HUD" parent="." instance=ExtResource("6_s5847")]
 
-[node name="HealthComponent" parent="SwordSkeleton" index="2"]
-max_health = 9999.0
+[node name="PauseMenu" parent="." instance=ExtResource("7_3ilqg")]
 
-[editable path="SwordSkeleton"]
+[node name="GameOverMenu" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_p87np")]
+player = NodePath("../player")
