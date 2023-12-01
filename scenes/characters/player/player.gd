@@ -1,14 +1,14 @@
 class_name Player extends CharacterBody2D
 
 
-@export var SPEED: float = 400.0
-@export var ACCEL: float = 40
+@export var max_speed: float = 250
+@export var acceleration: float = 5000
+@export var friction: float = 1500
 
 
 @onready var state_machine: PlayerStateMachine = $PlayerStateMachine
 @onready var marker: Marker2D = $Marker2D
-
-var direction = Vector2.ZERO
+@onready var direction = Vector2.ZERO
 
 
 func _ready():
@@ -28,18 +28,35 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	player_movement(delta)
+	get_direction()
+	move_player(delta)
 
 
-func player_movement(delta):
+func get_direction():
 	if state_machine.check_if_can_move():
 		direction = Input.get_vector("left", "right", "up", "down")
 	else:
 		direction = Vector2.ZERO
-	
-	velocity = velocity.move_toward(direction * SPEED, ACCEL)
 
+
+func move_player(delta):
+	if direction == Vector2.ZERO:
+		apply_friction(friction * delta)
+	else:
+		apply_movement(direction * acceleration * delta)
 	move_and_slide()
+
+
+func apply_friction(amount):
+	if velocity.length() > amount:
+		velocity -= velocity.normalized() * amount
+	else:
+		velocity = Vector2.ZERO
+
+
+func apply_movement(accel):
+	velocity += accel
+	velocity = velocity.limit_length(max_speed)
 
 
 func isDead():

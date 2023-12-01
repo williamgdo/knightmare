@@ -179,7 +179,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack-a",
-"speed": 16.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -334,7 +334,9 @@ position = Vector2(-22, -1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(21, 1)
 sprite_frames = SubResource("SpriteFrames_agxkm")
-animation = &"idle"
+animation = &"attack-a"
+frame = 6
+frame_progress = 1.0
 
 [node name="LightAttackHitbox" parent="Marker2D" instance=ExtResource("10_nh32l")]
 visible = false

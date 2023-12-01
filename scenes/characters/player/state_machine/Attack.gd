@@ -5,12 +5,12 @@ signal set_hitbox_monitoring(value: bool)
 func on_enter_state():
 #	player.velocity = player.velocity.move_toward(Vector2.ZERO * player.SPEED, player.ACCEL)
 #	player.velocity = player.velocity.lerp(player.direction * player.SPEED, player.ACCEL)
-	character.ACCEL = 20
+#	character.ACCEL = 20
 	animator.play("attack-a")
 
 
 func on_exit_state():
-	character.ACCEL = 40
+#	character.ACCEL = 40
 	set_hitbox_monitoring.emit(false)
 
 

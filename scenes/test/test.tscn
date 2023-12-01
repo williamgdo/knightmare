@@ -23,9 +23,6 @@ script = ExtResource("1_ttrp8")
 position = Vector2(1, 1)
 texture = ExtResource("2_py70w")
 
-[node name="SwordSkeleton" parent="World/Map-v2" instance=ExtResource("3_dvkqr")]
-position = Vector2(-167, -68)
-
 [node name="CollisionBottom" type="CollisionPolygon2D" parent="World"]
 visible = false
 polygon = PackedVector2Array(-508, -135, -499, -135, -499, 225, -339, 383, 342, 383, 501, 224, 501, -125, 507, -125, 507, 226, 343, 391, -348, 391, -509, 223)
@@ -72,6 +69,12 @@ collision_mask = 3
 [node name="ShieldSkeleton" parent="." instance=ExtResource("5_vnmil")]
 position = Vector2(23, -104)
 
+[node name="SwordSkeleton" parent="." instance=ExtResource("3_dvkqr")]
+position = Vector2(-166, -67)
+
+[node name="Idle" parent="SwordSkeleton/SkeletonStateMachine" index="0"]
+STAY_IDLE = true
+
 [node name="player" parent="." instance=ExtResource("4_4uvlp")]
 position = Vector2(-45, -121)
 
@@ -81,3 +84,5 @@ position = Vector2(-45, -121)
 
 [node name="GameOverMenu" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_p87np")]
 player = NodePath("../player")
+
+[editable path="SwordSkeleton"]
