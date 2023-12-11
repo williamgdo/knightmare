@@ -16,16 +16,27 @@ func _ready():
 func _map_children_states(args: Dictionary = {}):
 	for child in get_children():
 		if child is State:
-			states[child.name.to_lower()] = child
-			child.state_finished.connect(_handle_change_state)
-			child.interrupt_state.connect(_on_interrupt_state)
-
-			if args.is_empty() == false:
-				for key in args.keys():
-					child.set(key, args[key])
+			_add_and_connect_child(child, args)
+			if child.get_child_count() > 0:
+				loop_through_children(child, args)
 		else:
 			push_warning("Child " + child.name + " is not State for StateMachine")
 
+
+func loop_through_children(state: State, args):
+	for child in state.get_children():
+		if child is State:
+			_add_and_connect_child(child, args)
+
+
+func _add_and_connect_child(child: State, args):
+	states[child.name.to_lower()] = child
+	child.state_finished.connect(_handle_change_state)
+	child.interrupt_state.connect(_on_interrupt_state)
+	
+	if args.is_empty() == false:
+		for key in args.keys():
+			child.set(key, args[key])
 
 func _set_initial_state():
 	if initial_state != null:

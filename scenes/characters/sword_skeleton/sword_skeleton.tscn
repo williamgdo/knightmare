@@ -1,19 +1,21 @@
-[gd_scene load_steps=45 format=3 uid="uid://dy1007j50bos2"]
+[gd_scene load_steps=47 format=3 uid="uid://dy1007j50bos2"]
 
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/sword_skeleton.gd" id="1_8c3ws"]
+[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/Line.gd" id="2_oby4u"]
 [ext_resource type="Texture2D" uid="uid://dxlcrkgmw73oc" path="res://art/characters/skeleton/full-sheet.png" id="2_tjood"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="3_a3yne"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_0c1uv"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="5_djd3g"]
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/CollisionShape2D.gd" id="6_hcfxp"]
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/SkeletonStateMachine.gd" id="7_wroae"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Idle.gd" id="8_xeyt0"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Wandering.gd" id="9_natll"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Follow.gd" id="10_2sgqx"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Hit.gd" id="11_w10r4"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Dead.gd" id="12_sjnm1"]
-[ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/Attack.gd" id="13_lwu63"]
+[ext_resource type="PackedScene" uid="uid://c7lu666lgum2a" path="res://scripts/state_machine/templates/Idle.tscn" id="8_rm7kb"]
+[ext_resource type="PackedScene" uid="uid://bjvwpc0sp8dw6" path="res://scripts/state_machine/templates/Wander.tscn" id="9_e5o6d"]
+[ext_resource type="PackedScene" uid="uid://btc1oha5xmmi4" path="res://scripts/state_machine/templates/Follow.tscn" id="10_xchln"]
+[ext_resource type="PackedScene" uid="uid://y5d4aw4xognr" path="res://scripts/state_machine/templates/PreAttack.tscn" id="11_q0vhg"]
+[ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="12_slqcn"]
+[ext_resource type="PackedScene" uid="uid://c1hfv0vpiq03n" path="res://scripts/state_machine/templates/Hit.tscn" id="13_cahkq"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="14_0kmwr"]
+[ext_resource type="PackedScene" uid="uid://de67wkxwlcnvj" path="res://scripts/state_machine/templates/Dead.tscn" id="14_htxeg"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="15_nvc3q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ks1v"]
@@ -231,9 +233,15 @@ height = 22.0
 
 [node name="SwordSkeleton" type="CharacterBody2D"]
 z_index = 1
-position = Vector2(147, 83)
+position = Vector2(0, -32)
 collision_layer = 4
 script = ExtResource("1_8c3ws")
+metadata/_edit_group_ = true
+
+[node name="DrawDebug" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 37)
+script = ExtResource("2_oby4u")
 
 [node name="FeetPosition" type="Marker2D" parent="."]
 position = Vector2(0, 37)
@@ -258,6 +266,7 @@ position = Vector2(-2, 7.5)
 shape = SubResource("RectangleShape2D_aert0")
 
 [node name="AttackHitbox" parent="Marker2D" instance=ExtResource("4_0c1uv")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/AttackHitbox"]
 position = Vector2(40.5, 5.5)
@@ -278,36 +287,28 @@ animator = NodePath("../Marker2D/AnimatedSprite2D")
 label = NodePath("../DebugLabel")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("8_xeyt0")
+[node name="Idle" parent="SkeletonStateMachine" instance=ExtResource("8_rm7kb")]
 
-[node name="Wandering" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("9_natll")
+[node name="Wander" parent="SkeletonStateMachine" instance=ExtResource("9_e5o6d")]
 
-[node name="WanderTimer" type="Timer" parent="SkeletonStateMachine/Wandering"]
-wait_time = 3.0
-one_shot = true
+[node name="Follow" parent="SkeletonStateMachine" instance=ExtResource("10_xchln")]
 
-[node name="Follow" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("10_2sgqx")
+[node name="PreAttack" parent="SkeletonStateMachine" instance=ExtResource("11_q0vhg")]
 
-[node name="Hit" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("11_w10r4")
+[node name="Attack" parent="SkeletonStateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("12_slqcn")]
+hitbox = NodePath("../../../Marker2D/AttackHitbox")
+active_frame_start = 4
+active_frame_end = 7
 can_move = false
 
-[node name="Timer" type="Timer" parent="SkeletonStateMachine/Hit"]
-wait_time = 0.25
-one_shot = true
+[node name="Hit" parent="SkeletonStateMachine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("13_cahkq")]
+hurtbox = NodePath("../../Marker2D/Hurtbox")
+can_move = false
 
-[node name="Dead" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("12_sjnm1")
-
-[node name="DespawnTimer" type="Timer" parent="SkeletonStateMachine/Dead"]
-wait_time = 3.0
-one_shot = true
-
-[node name="Attack" type="Node" parent="SkeletonStateMachine"]
-script = ExtResource("13_lwu63")
+[node name="Dead" parent="SkeletonStateMachine" node_paths=PackedStringArray("health_component", "animated_sprite") instance=ExtResource("14_htxeg")]
+health_component = NodePath("../../HealthComponent")
+animated_sprite = NodePath("../../Marker2D/AnimatedSprite2D")
+can_move = false
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
@@ -329,16 +330,7 @@ offset_bottom = -6.0
 offset_left = -11.0
 offset_right = 229.0
 
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Hit" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Dead" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="SkeletonStateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="on_hit" from="Marker2D/Hurtbox" to="SkeletonStateMachine/Hit" method="_on_hurtbox_on_hit"]
 [connection signal="area_entered" from="Marker2D/AttackHitbox" to="Marker2D/AttackHitbox" method="_on_area_entered"]
 [connection signal="died" from="HealthComponent" to="CollisionShape2D" method="_on_health_component_died"]
-[connection signal="died" from="HealthComponent" to="SkeletonStateMachine/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthTextOnHit" method="_on_health_component_health_changed"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
-[connection signal="timeout" from="SkeletonStateMachine/Wandering/WanderTimer" to="SkeletonStateMachine/Wandering" method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="SkeletonStateMachine/Hit/Timer" to="SkeletonStateMachine/Hit" method="_on_timer_timeout"]
-[connection signal="timeout" from="SkeletonStateMachine/Dead/DespawnTimer" to="SkeletonStateMachine/Dead" method="_on_despawn_timer_timeout"]
-[connection signal="set_hitbox_monitoring" from="SkeletonStateMachine/Attack" to="Marker2D/AttackHitbox" method="_on_attack_set_hitbox_monitoring"]

@@ -1,4 +1,14 @@
+res://scenes/main_menu/MainMenu.tscn
+res://scenes/level/level.tscn
 res://scenes/test/test.tscn
 res://scenes/characters/player/player.tscn
+res://scenes/characters/sword_skeleton/sword_skeleton.tscn
 res://scenes/characters/player/player.gd
-res://scenes/characters/player/state_machine/Attack.gd
+res://scripts/state_machine/templates/PreAttack.gd
+res://scenes/characters/sword_skeleton/Line.gd
+res://scenes/test/test.gd
+res://scenes/characters/sword_skeleton/Line2D.gd
+res://scripts/state_machine/templates/Idle.gd
+res://scenes/characters/sword_skeleton/sword_skeleton.gd
+res://scripts/state_machine/templates/Follow.gd
+res://scenes/components/Hitbox/Hitbox.gd

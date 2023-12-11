@@ -20,11 +20,6 @@ func on_process_update(_delta):
 #	label.text = "%.2f %s %.2f" % [wander_duration, is_waiting, timer.get_time_left()]
 #	label.text = "%.2f %.2f %.2f" % [character.velocity.length(), character.velocity.x, character.velocity.y]
 	character.direction = move_direction.normalized()
-	
-	if character.velocity.length() > 0:
-		animator.play("walk")
-	else:
-		animator.play("idle")
 
 
 func on_physics_update(delta):
@@ -37,8 +32,8 @@ func on_physics_update(delta):
 			timer.start()
 			
 	if !is_waiting:
-		character.velocity = character.velocity.move_toward(move_direction * character.SPEED, character.ACCEL)
-		character.move_and_slide()
+		character.direction = move_direction.normalized()
+		character.move_character(delta)
 
 
 func _on_wander_timer_timeout():

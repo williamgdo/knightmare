@@ -8,4 +8,4 @@ func _ready():
 
 
 func _exit_tree():
-	Global.root_node = null
+	Global.root_node = null		
