@@ -8,6 +8,8 @@ extends State
 
 
 func _ready():
+	can_move = false
+	
 	if health_component == null:
 		push_error("health_component from %s@%s is not defined." % [self.name, owner.name])
 	else:

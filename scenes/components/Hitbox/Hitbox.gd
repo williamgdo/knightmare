@@ -35,7 +35,7 @@ func _on_area_entered(area):
 #	print("self ", z_index_self)
 #	print("area ", z_index_area)
 	
-	if absi(z_index_self - z_index_area) < Global.Z_INDEX_RANGE:
+	if absi(z_index_self - z_index_area) <= Global.Z_INDEX_RANGE:
 #		print("same plane")
 		var direction_to_hurtbox = (area.global_position - get_parent().global_position)
 		area.hit(damage, direction_to_hurtbox)

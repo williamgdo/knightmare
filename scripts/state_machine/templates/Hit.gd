@@ -11,6 +11,8 @@ var knockback_direction: Vector2
 
 
 func _ready():
+	can_move = false
+	
 	if hurtbox == null:
 		push_error("Hurtbox from %s@%s is not defined." % [self.name, owner.name])
 	else:
@@ -45,9 +47,9 @@ func _on_animated_sprite_2d_animation_finished():
 		pass
 
 
-func _on_hurtbox_on_hit(damage: float, knockback_direction: Vector2):
+func _on_hurtbox_on_hit(damage: float, _knockback_direction: Vector2):
 	interrupt_state.emit("hit")
-	self.knockback_direction = knockback_direction
+	self.knockback_direction = _knockback_direction
 	self.knockback_speed = damage * knockback_multiplier
 
 

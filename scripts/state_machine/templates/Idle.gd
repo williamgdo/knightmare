@@ -5,8 +5,14 @@ extends State
 @export var range_to_follow: int = 300
 
 
+func on_enter_state():
+	character.direction = Vector2.ZERO
+	character.velocity = Vector2.ZERO
+
+
 func on_process_update(_delta):
-	animator.play("idle")
+#	animator.play("idle")
+	pass
 
 
 func on_physics_update(_delta):

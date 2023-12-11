@@ -32,6 +32,6 @@ func _on_restart_btn_pressed():
 	get_tree().reload_current_scene()
 
 
-func _on_health_component_died(update):
+func _on_health_component_died(_update):
 	visible = true
 	restart_btn.grab_focus()

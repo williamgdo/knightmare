@@ -10,6 +10,6 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	score_counter.text = str("%05d" % Global.score)
 	wave_counter.text = str("%02d" % Global.wave)

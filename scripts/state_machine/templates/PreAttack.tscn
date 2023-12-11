@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://y5d4aw4xognr"]
+
+[ext_resource type="Script" path="res://scripts/state_machine/templates/PreAttack.gd" id="1_ramup"]
+
+[node name="PreAttack" type="Node"]
+script = ExtResource("1_ramup")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btc1oha5xmmi4"]
+
+[ext_resource type="Script" path="res://scripts/state_machine/templates/Follow.gd" id="1_bo55a"]
+
+[node name="Follow" type="Node"]
+script = ExtResource("1_bo55a")

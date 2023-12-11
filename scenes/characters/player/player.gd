@@ -3,7 +3,7 @@ class_name Player extends CharacterBody2D
 
 @export var max_speed: float = 250
 @export var acceleration: float = 5000
-@export var friction: float = 1500
+@export var friction: float = 2500
 
 
 @onready var state_machine: PlayerStateMachine = $PlayerStateMachine
@@ -29,7 +29,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	get_direction()
-	move_player(delta)
+	move_character(delta)
 
 
 func get_direction():
@@ -39,7 +39,7 @@ func get_direction():
 		direction = Vector2.ZERO
 
 
-func move_player(delta):
+func move_character(delta):
 	if direction == Vector2.ZERO:
 		apply_friction(friction * delta)
 	else:
