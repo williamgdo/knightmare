@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="12_dj1hu"]
 [ext_resource type="PackedScene" uid="uid://y5d4aw4xognr" path="res://scripts/state_machine/templates/PreAttack.tscn" id="12_thbsa"]
 [ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="13_axl4k"]
-[ext_resource type="Script" path="res://scenes/characters/slime/state_machine/Attack_2.gd" id="14_e7ytj"]
+[ext_resource type="Script" path="res://scenes/characters/slime/Attack_2_test.gd" id="14_vr3u1"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="14_wgi2i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oumoh"]
@@ -399,6 +399,7 @@ position = Vector2(0, 6)
 position = Vector2(3, -42)
 sprite_frames = SubResource("SpriteFrames_swotu")
 animation = &"attack_2"
+frame = 10
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("2_7a4qv")]
 visible = false
@@ -419,7 +420,6 @@ position = Vector2(-30.5, -10.5)
 shape = SubResource("RectangleShape2D_5y4pd")
 
 [node name="Attack_2_Hitbox" parent="Marker2D" instance=ExtResource("3_ydaf6")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Attack_2_Hitbox"]
 position = Vector2(-20, -6.5)
@@ -461,31 +461,31 @@ can_move = false
 
 [node name="Follow" parent="SlimeStateMachine" instance=ExtResource("11_jy4hg")]
 
-[node name="PreAttack" parent="SlimeStateMachine" instance=ExtResource("12_thbsa")]
+[node name="Attack_3" parent="SlimeStateMachine" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]
+hitbox = NodePath("../../Marker2D/Attack_2_Hitbox")
+active_frame_start = 3
+active_frame_end = 5
+attack_name = "attack_2"
+range_x = 30
+can_move = false
 
-[node name="Attack_1" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]
-hitbox = NodePath("../../../Marker2D/Attack_1_Hitbox")
+[node name="Attack_1" parent="SlimeStateMachine" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]
+hitbox = NodePath("../../Marker2D/Attack_1_Hitbox")
 active_frame_start = 6
 active_frame_end = 8
 attack_name = "attack_1"
 range_x = 45
 can_move = false
 
+[node name="PreAttack" parent="SlimeStateMachine" instance=ExtResource("12_thbsa")]
+
 [node name="Attack_2" type="Node" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox")]
-script = ExtResource("14_e7ytj")
+script = ExtResource("14_vr3u1")
 hitbox = NodePath("../../../Marker2D/Attack_2_Hitbox")
 active_frame_start = 3
 active_frame_end = 6
 attack_name = "attack_2"
-range_x = 60
-can_move = false
-
-[node name="Attack_3" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]
-hitbox = NodePath("../../../Marker2D/Attack_3_Hitbox")
-active_frame_start = 3
-active_frame_end = 5
-attack_name = "attack_3"
-range_x = 20
+range_x = 70
 can_move = false
 
 [node name="HealthBar" parent="." instance=ExtResource("12_dj1hu")]
@@ -495,7 +495,6 @@ offset_right = 228.0
 offset_bottom = -18.0
 
 [node name="DebugLabel" type="Label" parent="."]
-visible = false
 offset_left = -25.0
 offset_top = -69.0
 offset_right = 25.0

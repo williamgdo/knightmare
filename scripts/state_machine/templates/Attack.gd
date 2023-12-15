@@ -1,4 +1,4 @@
-extends State
+class_name AttackTemplate extends State
 
 signal set_hitbox_monitoring(value: bool)
 
@@ -8,14 +8,18 @@ signal set_hitbox_monitoring(value: bool)
 @export var attack_name: String = "attack"
 @export var range_x: int = 50
 
-var attack_data = {
-	"name": attack_name, 
-	"range_x": range_x
-}
-
+var attack_data
 
 func _ready():
 	can_move = false
+	
+	if hitbox == null:
+		push_error("hitbox from %s@%s is not defined." % [self.name, owner.name])
+	
+	attack_data = {
+		"name": attack_name, 
+		"range_x": range_x
+	}
 
 
 func on_enter_state():

@@ -1,19 +1,30 @@
 extends State
 
 @export var knockback_multiplier: float = 5
+@export var hurtbox: Hurtbox
 
-
-@onready var timer: Timer = $Timer
+@onready var timer: Timer = $Hitstun
 
 
 var knockback_speed: float 
 var knockback_direction: Vector2
 
+var animation_array = ["hit-1", "hit-2"]
+
+func _ready():
+	can_move = false
+	
+	if hurtbox == null:
+		push_error("Hurtbox from %s@%s is not defined." % [self.name, owner.name])
+	else:
+		hurtbox.on_hit.connect(_on_hurtbox_on_hit)
+
 
 func on_enter_state():
 	character.velocity = Vector2.ZERO
 	timer.start()
-	animator.play("hit-1")
+	var rand_anim = animation_array[randi() % 2]
+	animator.play(rand_anim)
 
 
 func on_exit_state():
@@ -46,6 +57,5 @@ func _on_hurtbox_on_hit(damage: float, _knockback_direction: Vector2):
 	self.knockback_speed = damage * knockback_multiplier
 
 
-func _on_timer_timeout():
+func _on_hitstun_timeout():
 	state_finished.emit(self, "idle")
-#	pass

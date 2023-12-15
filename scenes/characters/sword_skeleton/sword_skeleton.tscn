@@ -252,7 +252,7 @@ position = Vector2(0, 5)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(19, -16)
 sprite_frames = SubResource("SpriteFrames_6k3qh")
-animation = &"idle"
+animation = &"attack"
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("3_a3yne")]
 visible = false

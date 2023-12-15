@@ -18,7 +18,9 @@ func _ready():
 	else:
 		hurtbox.on_hit.connect(_on_hurtbox_on_hit)
 
+
 func on_enter_state():
+	character.velocity = Vector2.ZERO
 	timer.start()
 	animator.play("hit")
 

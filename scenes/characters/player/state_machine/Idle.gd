@@ -7,7 +7,7 @@ func on_process_update(_delta: float):
 		state_finished.emit(self, "walk")
 	
 	if Input.is_action_pressed("light-attack"):
-		state_finished.emit(self, "attack")
+		state_finished.emit(self, "attack_1")
 
 
 func on_enter_state():

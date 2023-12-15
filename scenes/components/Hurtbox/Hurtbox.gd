@@ -8,7 +8,9 @@ signal on_hit(damage: float)
 
 
 func _ready():
-	if health_component != null:
+	if health_component == null:
+		push_error("health_component from %s@%s is not defined." % [self.name, owner.name])
+	else:
 		health_component.died.connect(_on_health_component_died)
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://8742d4n8hetw"]
+[gd_scene load_steps=59 format=3 uid="uid://8742d4n8hetw"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_bocuo"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="2_lttma"]
@@ -14,8 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="10_nh32l"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="12_btapn"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Walk.gd" id="14_0w4lb"]
+[ext_resource type="Script" path="res://scenes/characters/player/state_machine/Hit.gd" id="15_b4peu"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Attack.gd" id="15_vdulj"]
-[ext_resource type="Script" path="res://scenes/characters/player/state_machine/Hit.gd" id="16_nohcl"]
+[ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="19_27gu5"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Dead.gd" id="20_o6rmw"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="22_3op6y"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/PlayerStateMachine.gd" id="27_rq8sn"]
@@ -178,7 +179,7 @@ animations = [{
 "texture": ExtResource("8_eejd4")
 }],
 "loop": false,
-"name": &"attack-a",
+"name": &"attack_1",
 "speed": 20.0
 }, {
 "frames": [{
@@ -316,7 +317,6 @@ collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_bocuo")
 friction = 5000.0
-metadata/_edit_group_ = true
 
 [node name="FeetPosition" type="Marker2D" parent="."]
 position = Vector2(-20, 32)
@@ -335,9 +335,7 @@ position = Vector2(-22, -1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(21, 1)
 sprite_frames = SubResource("SpriteFrames_agxkm")
-animation = &"attack-a"
-frame = 6
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="LightAttackHitbox" parent="Marker2D" instance=ExtResource("10_nh32l")]
 visible = false
@@ -356,7 +354,6 @@ position = Vector2(22, 1)
 health_component = NodePath("../../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Hurtbox"]
-visible = false
 position = Vector2(-22, 0.75)
 shape = SubResource("RectangleShape2D_pnf0y")
 
@@ -366,22 +363,28 @@ character = NodePath("..")
 animator = NodePath("../Marker2D/AnimatedSprite2D")
 initial_state = NodePath("Idle")
 
+[node name="Hit" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("15_b4peu")
+hurtbox = NodePath("../../Marker2D/Hurtbox")
+
+[node name="Hitstun" type="Timer" parent="PlayerStateMachine/Hit"]
+wait_time = 0.25
+
 [node name="Idle" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("28_o0g7p")
 
 [node name="Walk" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("14_0w4lb")
 
-[node name="Attack" type="Node" parent="PlayerStateMachine"]
+[node name="Attack_bkp" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("15_vdulj")
 can_move = false
 
-[node name="Hit" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("16_nohcl")
-can_move = false
-
-[node name="Timer" type="Timer" parent="PlayerStateMachine/Hit"]
-wait_time = 0.2
+[node name="Attack_1" parent="PlayerStateMachine" node_paths=PackedStringArray("hitbox") instance=ExtResource("19_27gu5")]
+hitbox = NodePath("../../Marker2D/LightAttackHitbox")
+active_frame_start = 4
+active_frame_end = 6
+attack_name = "attack_1"
 
 [node name="Dead" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("20_o6rmw")
@@ -423,11 +426,8 @@ drag_vertical_enabled = true
 
 [connection signal="died" from="HealthComponent" to="PlayerStateMachine/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Attack" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Hit" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Attack_bkp" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Dead" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Marker2D/LightAttackHitbox" to="Marker2D/LightAttackHitbox" method="_on_area_entered"]
-[connection signal="on_hit" from="Marker2D/Hurtbox" to="PlayerStateMachine/Hit" method="_on_hurtbox_on_hit"]
-[connection signal="set_hitbox_monitoring" from="PlayerStateMachine/Attack" to="Marker2D/LightAttackHitbox" method="_on_attack_set_hitbox_monitoring"]
-[connection signal="timeout" from="PlayerStateMachine/Hit/Timer" to="PlayerStateMachine/Hit" method="_on_timer_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Hit/Hitstun" to="PlayerStateMachine/Hit" method="_on_hitstun_timeout"]
+[connection signal="set_hitbox_monitoring" from="PlayerStateMachine/Attack_bkp" to="Marker2D/LightAttackHitbox" method="_on_attack_set_hitbox_monitoring"]
 [connection signal="timeout" from="PlayerStateMachine/Dead/DespawnTimer" to="PlayerStateMachine/Dead" method="_on_despawn_timer_timeout"]

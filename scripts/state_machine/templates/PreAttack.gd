@@ -3,21 +3,20 @@ extends State
 var attack_array = []
 var next_attack = null
 
-@onready var line = $"../../DrawDebug"
+#@onready var line = $"../../DrawDebug"
 
 func _ready():
 	for child in get_children():
 		if child is State:
-#			var attack = {
-#				"name": child.name,
-#				"range": child.range,
-#			}
-#			var attack = Attack.new(child.name, child.range)
 			if child.attack_data == null :
 				push_error("attack_data not defined in attack State of " + owner.name)
 			else:
 				attack_array.push_back(child.attack_data)
 #				print(str(child.attack_data.range))
+
+
+func on_exit_state():
+	next_attack = null
 
 
 func on_physics_update(_delta):
@@ -29,7 +28,7 @@ func on_physics_update(_delta):
 	if next_attack == null:
 		next_attack = get_random_attack()
 	
-	var attack_position = get_attack_position(character_position, player_position, 50)
+	var attack_position = get_attack_position(character_position, player_position, next_attack.range_x)
 	
 	if character_position.distance_to(attack_position) >= 100:
 		state_finished.emit(self, "follow")
@@ -38,7 +37,7 @@ func on_physics_update(_delta):
 	character.face = (player_position - character_position).normalized()
 	
 	if is_in_range(character_position, attack_position):
-		state_finished.emit(self, "attack")
+		state_finished.emit(self, next_attack.name)
 	else:
 		character.move_character(_delta)
 
@@ -76,10 +75,10 @@ func get_attack_position(character_position, player_position, attack_range):
 	var right_point = player_position + Vector2(attack_range, 0)
 	var left_point = player_position - Vector2(attack_range, 0)
 	
-	line.line_left.origin = character_position
-	line.line_left.destination = left_point
-	line.line_right.origin = character_position
-	line.line_right.destination = right_point
+#	line.line_left.origin = character_position
+#	line.line_left.destination = left_point
+#	line.line_right.origin = character_position
+#	line.line_right.destination = right_point
 	
 	var distance_to_right = character_position.distance_to(right_point)
 	var distance_to_left = character_position.distance_to(left_point)
@@ -88,13 +87,13 @@ func get_attack_position(character_position, player_position, attack_range):
 	
 	if distance_to_left < distance_to_right:
 		target_position = left_point
-		line.line_left.color = Color.GREEN
-		line.line_right.color = Color.RED
+#		line.line_left.color = Color.GREEN
+#		line.line_right.color = Color.RED
 #		print("LEFT")
 	else:
 		target_position = right_point
-		line.line_left.color = Color.RED
-		line.line_right.color = Color.GREEN
+#		line.line_left.color = Color.RED
+#		line.line_right.color = Color.GREEN
 #		print("RIGHT")
 
 	return target_position
