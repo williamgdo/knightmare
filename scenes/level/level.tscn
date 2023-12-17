@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://w2xsvx06pkhx"]
+[gd_scene load_steps=10 format=3 uid="uid://w2xsvx06pkhx"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_kgdkt"]
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_twjis"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/characters/player/player.tscn" id="4_dd2aj"]
 [ext_resource type="PackedScene" uid="uid://dbol30ecitcvb" path="res://scenes/components/UI/HUD.tscn" id="5_jsxv5"]
 [ext_resource type="PackedScene" uid="uid://1f18j27gkjo" path="res://scenes/pause_menu/pause_menu.tscn" id="6_y2m4g"]
+[ext_resource type="PackedScene" uid="uid://c0e4n4sslg6r8" path="res://scenes/game_over_menu/game_over_menu.tscn" id="7_81kwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
 size = Vector2(123, 117)
@@ -86,5 +87,10 @@ one_shot = true
 [node name="HUD" parent="." instance=ExtResource("5_jsxv5")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_y2m4g")]
+visible = false
+
+[node name="GameOverMenu" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_81kwq")]
+visible = false
+player = NodePath("../player")
 
 [connection signal="timeout" from="NewWaveTimer" to="." method="_on_new_wave_timer_timeout"]

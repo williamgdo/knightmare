@@ -330,7 +330,6 @@ offset_bottom = -6.0
 offset_left = -11.0
 offset_right = 229.0
 
-[connection signal="area_entered" from="Marker2D/AttackHitbox" to="Marker2D/AttackHitbox" method="_on_area_entered"]
 [connection signal="died" from="HealthComponent" to="CollisionShape2D" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthTextOnHit" method="_on_health_component_health_changed"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]

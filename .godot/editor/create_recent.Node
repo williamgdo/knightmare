@@ -1,3 +1,7 @@
+Sprite2D
+Label
+CollisionShape2D
+AttackTemplate
 State
 Timer
 Marker2D

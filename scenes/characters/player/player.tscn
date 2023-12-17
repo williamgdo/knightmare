@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://8742d4n8hetw"]
+[gd_scene load_steps=58 format=3 uid="uid://8742d4n8hetw"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_bocuo"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="2_lttma"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="12_btapn"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Walk.gd" id="14_0w4lb"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Hit.gd" id="15_b4peu"]
-[ext_resource type="Script" path="res://scenes/characters/player/state_machine/Attack.gd" id="15_vdulj"]
 [ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="19_27gu5"]
 [ext_resource type="Script" path="res://scenes/characters/player/state_machine/Dead.gd" id="20_o6rmw"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="22_3op6y"]
@@ -376,10 +375,6 @@ script = ExtResource("28_o0g7p")
 [node name="Walk" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("14_0w4lb")
 
-[node name="Attack_bkp" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("15_vdulj")
-can_move = false
-
 [node name="Attack_1" parent="PlayerStateMachine" node_paths=PackedStringArray("hitbox") instance=ExtResource("19_27gu5")]
 hitbox = NodePath("../../Marker2D/LightAttackHitbox")
 active_frame_start = 4
@@ -426,8 +421,6 @@ drag_vertical_enabled = true
 
 [connection signal="died" from="HealthComponent" to="PlayerStateMachine/Dead" method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
-[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Attack_bkp" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="PlayerStateMachine/Dead" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="PlayerStateMachine/Hit/Hitstun" to="PlayerStateMachine/Hit" method="_on_hitstun_timeout"]
-[connection signal="set_hitbox_monitoring" from="PlayerStateMachine/Attack_bkp" to="Marker2D/LightAttackHitbox" method="_on_attack_set_hitbox_monitoring"]
 [connection signal="timeout" from="PlayerStateMachine/Dead/DespawnTimer" to="PlayerStateMachine/Dead" method="_on_despawn_timer_timeout"]

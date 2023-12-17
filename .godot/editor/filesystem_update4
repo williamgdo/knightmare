@@ -1,10 +1,9 @@
+res://scenes/main_menu/MainMenu.tscn
+res://scenes/instructions/Instructions.gd
 res://scenes/level/level.tscn
-res://scenes/test/test.tscn
-res://scenes/characters/player/player.tscn
-res://scenes/characters/slime/slime.tscn
-res://scenes/characters/spear_skeleton/spear_skeleton.tscn
-res://scripts/state_machine/state.gd
-res://scenes/characters/player/state_machine/Hit.gd
-res://scripts/state_machine/templates/Hit.tscn
-res://scripts/state_machine/templates/Hit.gd
 res://scenes/components/Hitbox/Hitbox.gd
+res://scenes/components/Hitbox/Hitbox.tscn
+res://scenes/characters/player/player.tscn
+res://scripts/state_machine/templates/Attack.tscn
+res://scenes/test/test.tscn
+res://scenes/characters/sword_skeleton/sword_skeleton.tscn

@@ -1,2 +1,7 @@
+res://scenes/main_menu
+res://scenes/level
+res://scenes/instructions
+res://art/fonts
+res://art/characters/shield
 res://scenes/characters/player/state_machine
 res://scenes/characters/slime/state_machine

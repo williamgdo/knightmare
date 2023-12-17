@@ -2,10 +2,10 @@ extends Node2D
 
 var sword_skeleton = preload("res://scenes/characters/sword_skeleton/sword_skeleton.tscn")
 var slime = preload("res://scenes/characters/slime/slime.tscn")
-#var spear_skeleton = preload("res://scenes/characters/spear_skeleton/spear_skeleton.tscn")
-var spear_skeleton = preload("res://scenes/characters/sword_skeleton/sword_skeleton.tscn")
+var spear_skeleton = preload("res://scenes/characters/spear_skeleton/spear_skeleton.tscn")
+var shield_skeleton = preload("res://scenes/characters/shield_skeleton/shield_skeleton.tscn")
 
-var enemy_array = [sword_skeleton, slime, spear_skeleton]
+var enemy_array = [sword_skeleton, slime, spear_skeleton, shield_skeleton]
 
 
 var enemy_count: int = 0

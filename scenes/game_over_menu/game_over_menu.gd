@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @export var player: CharacterBody2D
 @onready var restart_btn = $MarginContainer/VBoxContainer2/VBoxContainer/RestartBtn
-
+var mainMenuScene = load("res://scenes/main_menu/MainMenu.tscn")
 
 func _ready():
 	visible = false
@@ -25,7 +25,8 @@ func _unhandled_input(event):
 
 
 func _on_quit_btn_pressed():
-	get_tree().quit()
+#	get_tree().quit()
+	get_tree().change_scene_to_packed(mainMenuScene)
 
 
 func _on_restart_btn_pressed():

@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg3f0s8gpys60"]
+
+[ext_resource type="Script" path="res://scenes/instructions/Instructions.gd" id="1_fhwh5"]
+[ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_s11ic"]
+[ext_resource type="FontFile" uid="uid://de3gu2fieqpft" path="res://art/fonts/PressStart2P.ttf" id="3_1nfkn"]
+[ext_resource type="Script" path="res://scenes/main_menu/Label.gd" id="4_md4vl"]
+[ext_resource type="Texture2D" uid="uid://b1engr1oa3mq8" path="res://scenes/instructions/instructions-directionals.png" id="5_a7lkd"]
+[ext_resource type="Texture2D" uid="uid://dvsv2dquct0j6" path="res://scenes/instructions/instructions-attack.png" id="6_fjr4o"]
+
+[node name="Instructions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fhwh5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.00784314, 0.0117647, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_1nfkn")
+theme_override_font_sizes/font_size = 17
+text = "- Bem-vindo a Knightmare, um pesadelo em 2D onde você, um cavaleiro, enfrenta ondas intermináveis de inimigos em um confronto visto de cima. 
+
+- Manobre pelo calabouço com as teclas A, W, S, D, enquanto usa sua poderosa espada para atacar esqueletos e slimes com a tecla J. 
+
+- Cada golpe triunfante acrescenta à sua pontuação, transformando-o no campeão indiscutível desta aventura. Neste mundo pixelizado, seu teclado é sua arma, e sua glória é medida em pontos. "
+horizontal_alignment = 1
+autowrap_mode = 3
+uppercase = true
+script = ExtResource("4_md4vl")
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/Container"]
+
+[node name="Instructions-directionals" type="Sprite2D" parent="."]
+position = Vector2(340, 547)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("5_a7lkd")
+
+[node name="Instructions-attack" type="Sprite2D" parent="."]
+position = Vector2(937, 573)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("6_fjr4o")
+
+[node name="BackBtn" type="Button" parent="."]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 52.0
+offset_right = 274.0
+offset_bottom = 81.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_s11ic")
+theme_override_font_sizes/font_size = 29
+text = "Voltar"
+
+[connection signal="pressed" from="BackBtn" to="." method="_on_back_btn_pressed"]

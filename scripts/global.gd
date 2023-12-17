@@ -8,6 +8,10 @@ var score = 0
 
 const Z_INDEX_RANGE = 8
 
+#func _ready():
+#	Engine.max_fps = 15
+
+
 func instantiate_node(node, position: Vector2, parent):
 	if root_node != null:
 		var node_instance = node.instantiate()

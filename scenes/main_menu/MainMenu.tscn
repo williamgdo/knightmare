@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bg3v63sias5pu"]
+[gd_scene load_steps=6 format=3 uid="uid://bg3v63sias5pu"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/MainMenu.gd" id="1_bxgo3"]
 [ext_resource type="FontFile" uid="uid://de3gu2fieqpft" path="res://art/fonts/PressStart2P.ttf" id="1_nox00"]
 [ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_0c6sy"]
-[ext_resource type="PackedScene" uid="uid://cx3p8qoiqls2f" path="res://scenes/test/test.tscn" id="2_ymxrq"]
+[ext_resource type="PackedScene" uid="uid://w2xsvx06pkhx" path="res://scenes/level/level.tscn" id="2_aui4s"]
+[ext_resource type="PackedScene" uid="uid://bg3f0s8gpys60" path="res://scenes/instructions/Instructions.tscn" id="3_klc01"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +14,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bxgo3")
-mainGameScene = ExtResource("2_ymxrq")
+mainGameScene = ExtResource("2_aui4s")
+instructionsScene = ExtResource("3_klc01")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -61,7 +63,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 focus_neighbor_top = NodePath("../QuitBtn")
-focus_neighbor_bottom = NodePath("../QuitBtn")
+focus_neighbor_bottom = NodePath("../ControlsBtn")
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_0c6sy")
 theme_override_font_sizes/font_size = 29
@@ -82,11 +84,11 @@ text = "Options"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-focus_neighbor_top = NodePath("../QuitBtn")
+focus_neighbor_top = NodePath("../StartBtn")
+focus_neighbor_bottom = NodePath("../QuitBtn")
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_0c6sy")
 theme_override_font_sizes/font_size = 29
-disabled = true
 text = "Controls"
 
 [node name="CreditsBtn" type="Button" parent="MarginContainer/Container/VBoxContainer"]
@@ -104,7 +106,7 @@ text = "Credits"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-focus_neighbor_top = NodePath("../StartBtn")
+focus_neighbor_top = NodePath("../ControlsBtn")
 focus_neighbor_bottom = NodePath("../StartBtn")
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_0c6sy")
@@ -112,7 +114,5 @@ theme_override_font_sizes/font_size = 29
 text = "Quit Game"
 
 [connection signal="pressed" from="MarginContainer/Container/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/OptionsBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/ControlsBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/CreditsBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/ControlsBtn" to="." method="_on_controls_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Container/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

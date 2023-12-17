@@ -477,7 +477,7 @@ hitbox = NodePath("../../../Marker2D/Attack_2_Hitbox")
 active_frame_start = 3
 active_frame_end = 6
 attack_name = "attack_2"
-range_x = 60
+range_x = 80
 can_move = false
 
 [node name="Attack_3" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]

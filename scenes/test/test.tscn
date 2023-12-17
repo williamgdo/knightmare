@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cx3p8qoiqls2f"]
+[gd_scene load_steps=10 format=3 uid="uid://cx3p8qoiqls2f"]
 
 [ext_resource type="Script" path="res://scenes/test/test.gd" id="1_ttrp8"]
 [ext_resource type="Texture2D" uid="uid://bsf2446eo725q" path="res://art/map/map-v2.png" id="2_py70w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://8742d4n8hetw" path="res://scenes/characters/player/player.tscn" id="4_4uvlp"]
 [ext_resource type="PackedScene" uid="uid://dbol30ecitcvb" path="res://scenes/components/UI/HUD.tscn" id="6_s5847"]
 [ext_resource type="PackedScene" uid="uid://1f18j27gkjo" path="res://scenes/pause_menu/pause_menu.tscn" id="7_3ilqg"]
+[ext_resource type="PackedScene" uid="uid://dy1007j50bos2" path="res://scenes/characters/sword_skeleton/sword_skeleton.tscn" id="8_28fbs"]
 [ext_resource type="PackedScene" uid="uid://c0e4n4sslg6r8" path="res://scenes/game_over_menu/game_over_menu.tscn" id="8_p87np"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pus7h"]
@@ -76,3 +77,5 @@ visible = false
 [node name="GameOverMenu" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_p87np")]
 visible = false
 player = NodePath("../player")
+
+[node name="SwordSkeleton" parent="." instance=ExtResource("8_28fbs")]

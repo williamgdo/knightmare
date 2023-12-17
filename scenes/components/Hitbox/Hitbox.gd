@@ -6,8 +6,6 @@ class_name Hitbox extends Area2D
 
 func _ready():
 	monitoring = false
-	area_entered.connect(_on_area_entered)
-
 
 func _set_monitoring(value: bool):
 	if monitoring != value:
