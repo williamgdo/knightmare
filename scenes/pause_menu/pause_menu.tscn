@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://1f18j27gkjo"]
+[gd_scene load_steps=6 format=3 uid="uid://1f18j27gkjo"]
 
 [ext_resource type="Script" path="res://scenes/pause_menu/pause_menu.gd" id="1_a5nku"]
 [ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_nmf7g"]
+[ext_resource type="PackedScene" uid="uid://brxhuy3j2slv7" path="res://scenes/options_ui/options_ui.tscn" id="3_3lisi"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_3qxh3"]
 action = &"ui_cancel"
@@ -39,13 +40,33 @@ layout_mode = 2
 theme = ExtResource("2_nmf7g")
 theme_override_font_sizes/font_size = 35
 shortcut = SubResource("Shortcut_cp2vt")
-text = "Resume"
+text = "Continuar"
 
-[node name="QuitBtn" type="Button" parent="VBoxContainer"]
+[node name="Options" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_nmf7g")
 theme_override_font_sizes/font_size = 35
-text = "Quit To Main Menu"
+shortcut = SubResource("Shortcut_cp2vt")
+text = "Opções"
+
+[node name="QuitMenuBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_nmf7g")
+theme_override_font_sizes/font_size = 35
+text = "Sair para o 
+menu principal"
+
+[node name="QuitDesktopBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_nmf7g")
+theme_override_font_sizes/font_size = 35
+text = "Sair para área
+ de trabalho"
+
+[node name="Options" parent="." instance=ExtResource("3_3lisi")]
+visible = false
 
 [connection signal="pressed" from="VBoxContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitMenuBtn" to="." method="_on_quit_menu_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitDesktopBtn" to="." method="_on_quit_btn_pressed"]

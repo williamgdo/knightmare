@@ -8,4 +8,7 @@ script = ExtResource("1_3puwm")
 [node name="DespawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

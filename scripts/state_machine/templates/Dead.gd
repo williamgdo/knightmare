@@ -5,7 +5,8 @@ extends State
 
 @export var health_component: health_component
 @export var animated_sprite: AnimatedSprite2D
-
+@export var death_sfx: AudioStream
+@onready var sound = $Sound
 
 func _ready():
 	can_move = false
@@ -19,10 +20,14 @@ func _ready():
 		push_error("animated_sprite from %s@%s is not defined." % [self.name, owner.name])
 	else:
 		animated_sprite.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
+		
+	assert(death_sfx != null, "death_sfx from %s@%s is not defined." % [self.name, owner.name])
+	sound.stream = death_sfx
 
 
 func on_enter_state():
 	animator.play("dead")
+	sound.play()
 	
 	if character.points_reward != null:
 		Global.score += character.points_reward
@@ -41,6 +46,7 @@ func _on_animated_sprite_2d_animation_finished():
 
 
 func _on_despawn_timer_timeout():
+	sound.stop()
 	start_blinking()
 
 

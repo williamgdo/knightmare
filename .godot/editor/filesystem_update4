@@ -1,9 +1,7 @@
-res://scenes/main_menu/MainMenu.tscn
-res://scenes/instructions/Instructions.gd
 res://scenes/level/level.tscn
-res://scenes/components/Hitbox/Hitbox.gd
-res://scenes/components/Hitbox/Hitbox.tscn
+res://scenes/instructions/Instructions.gd
 res://scenes/characters/player/player.tscn
-res://scripts/state_machine/templates/Attack.tscn
-res://scenes/test/test.tscn
+res://scenes/characters/shield_skeleton/shield_skeleton.tscn
+res://scenes/components/UI/health_bar.tscn
 res://scenes/characters/sword_skeleton/sword_skeleton.tscn
+res://scenes/main_menu/MainMenu.tscn

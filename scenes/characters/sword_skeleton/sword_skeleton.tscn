@@ -1,10 +1,11 @@
-[gd_scene load_steps=47 format=3 uid="uid://dy1007j50bos2"]
+[gd_scene load_steps=51 format=3 uid="uid://dy1007j50bos2"]
 
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/sword_skeleton.gd" id="1_8c3ws"]
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/Line.gd" id="2_oby4u"]
 [ext_resource type="Texture2D" uid="uid://dxlcrkgmw73oc" path="res://art/characters/skeleton/full-sheet.png" id="2_tjood"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="3_a3yne"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_0c1uv"]
+[ext_resource type="Texture2D" uid="uid://b4divak62ca0s" path="res://art/particles/shadows.png" id="4_fmvps"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="5_djd3g"]
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/CollisionShape2D.gd" id="6_hcfxp"]
 [ext_resource type="Script" path="res://scenes/characters/sword_skeleton/state_machine/SkeletonStateMachine.gd" id="7_wroae"]
@@ -16,7 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://c1hfv0vpiq03n" path="res://scripts/state_machine/templates/Hit.tscn" id="13_cahkq"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="14_0kmwr"]
 [ext_resource type="PackedScene" uid="uid://de67wkxwlcnvj" path="res://scripts/state_machine/templates/Dead.tscn" id="14_htxeg"]
+[ext_resource type="AudioStream" uid="uid://o6dfrcyt24rj" path="res://art/audio/sfx/sword-slash.mp3" id="14_yj04u"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="15_nvc3q"]
+[ext_resource type="AudioStream" uid="uid://s41q88da0ded" path="res://art/audio/sfx/skeleton-hurt.mp3" id="16_iisy1"]
+[ext_resource type="AudioStream" uid="uid://dpwp5i8owrn81" path="res://art/audio/sfx/skeleton-death.mp3" id="18_hk1qx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ks1v"]
 atlas = ExtResource("2_tjood")
@@ -236,7 +240,11 @@ z_index = 1
 position = Vector2(0, -32)
 collision_layer = 4
 script = ExtResource("1_8c3ws")
+max_speed = 70.0
 metadata/_edit_group_ = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_djd3g")]
+max_health = 150.0
 
 [node name="DrawDebug" type="Node2D" parent="."]
 visible = false
@@ -248,6 +256,12 @@ position = Vector2(0, 37)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, 5)
+
+[node name="Shadow" type="Sprite2D" parent="Marker2D"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(-0.500001, 31)
+scale = Vector2(0.58, 0.44)
+texture = ExtResource("4_fmvps")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(19, -16)
@@ -267,12 +281,11 @@ shape = SubResource("RectangleShape2D_aert0")
 
 [node name="AttackHitbox" parent="Marker2D" instance=ExtResource("4_0c1uv")]
 visible = false
+damage = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/AttackHitbox"]
 position = Vector2(40.5, 5.5)
 shape = SubResource("RectangleShape2D_q2k5t")
-
-[node name="HealthComponent" parent="." instance=ExtResource("5_djd3g")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -299,15 +312,18 @@ initial_state = NodePath("Idle")
 hitbox = NodePath("../../../Marker2D/AttackHitbox")
 active_frame_start = 4
 active_frame_end = 7
+attack_sfx = ExtResource("14_yj04u")
 can_move = false
 
 [node name="Hit" parent="SkeletonStateMachine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("13_cahkq")]
 hurtbox = NodePath("../../Marker2D/Hurtbox")
+hurt_sfx = ExtResource("16_iisy1")
 can_move = false
 
 [node name="Dead" parent="SkeletonStateMachine" node_paths=PackedStringArray("health_component", "animated_sprite") instance=ExtResource("14_htxeg")]
 health_component = NodePath("../../HealthComponent")
 animated_sprite = NodePath("../../Marker2D/AnimatedSprite2D")
+death_sfx = ExtResource("18_hk1qx")
 can_move = false
 
 [node name="DebugLabel" type="Label" parent="."]

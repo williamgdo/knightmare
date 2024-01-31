@@ -4,6 +4,7 @@ extends State
 @export var hurtbox: Hurtbox
 
 @onready var timer: Timer = $Hitstun
+@onready var hit_sound = $HitSound
 
 
 var knockback_speed: float 
@@ -25,11 +26,14 @@ func on_enter_state():
 	timer.start()
 	var rand_anim = animation_array[randi() % 2]
 	animator.play(rand_anim)
+	hit_sound.play()
 
 
 func on_exit_state():
 	character.velocity = Vector2.ZERO
-
+	if Global.player.isDead():
+		hit_sound.stop()
+		
 
 func on_physics_update(delta):
 	var sword_range = Vector2(65, 0)

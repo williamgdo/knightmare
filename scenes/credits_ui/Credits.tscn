@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://pggoqgx0jqpb"]
+
+[ext_resource type="Script" path="res://scenes/credits_ui/Credits.gd" id="1_ytwno"]
+[ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="6_h7svw"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ytwno")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.00784314, 0.0117647, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 27
+
+[node name="William" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 24
+text = "* Desenvolvido por William GDO"
+alignment = 0
+
+[node name="SzadiArt" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 24
+text = "* Szadi Art:"
+alignment = 0
+
+[node name="Personagens" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 24
+text = "   - Personagens e inimigos"
+alignment = 0
+
+[node name="Mapa" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 24
+text = "   - Tiles de Mapa"
+alignment = 0
+
+[node name="Incompetech" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 19
+text = "* Músicas por Kevin MacLeod (incompetech.com)
+
+Licenciado sob Creative Commons: By Attribution 3.0
+
+http://creativecommons.org/licenses/by/3.0/"
+alignment = 0
+
+[node name="Label" type="Label" parent="MarginContainer/Container"]
+layout_mode = 2
+theme = ExtResource("6_h7svw")
+theme_override_constants/line_spacing = 20
+theme_override_font_sizes/font_size = 24
+text = "   - A very brady special
+   - Mechanolith
+   - The Whip Theme"
+
+[node name="SFX" type="Button" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 24
+text = "* Efeitos sonoros por Pixabay"
+alignment = 0
+
+[node name="BackBtn" type="Button" parent="."]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 52.0
+offset_right = 274.0
+offset_bottom = 81.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_h7svw")
+theme_override_font_sizes/font_size = 29
+text = "Voltar..."
+
+[connection signal="pressed" from="MarginContainer/Container/William" to="." method="_on_william_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/SzadiArt" to="." method="_on_szadi_art_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/Personagens" to="." method="_on_personagens_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/Mapa" to="." method="_on_mapa_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/Incompetech" to="." method="_on_incompetech_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/SFX" to="." method="_on_sfx_pressed"]
+[connection signal="pressed" from="BackBtn" to="." method="_on_back_btn_pressed"]

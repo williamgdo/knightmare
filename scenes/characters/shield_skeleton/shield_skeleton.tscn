@@ -1,9 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://ht85nhfci0tk"]
+[gd_scene load_steps=61 format=3 uid="uid://ht85nhfci0tk"]
 
 [ext_resource type="Script" path="res://scenes/characters/shield_skeleton/shield_skeleton.gd" id="1_b6s3v"]
 [ext_resource type="Texture2D" uid="uid://vyjj2mduyufp" path="res://art/characters/shield/full-sheet.png" id="1_lt2n3"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="2_k3nhe"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="3_f5hkf"]
+[ext_resource type="Texture2D" uid="uid://b4divak62ca0s" path="res://art/particles/shadows.png" id="3_xkcwu"]
 [ext_resource type="Script" path="res://scenes/characters/shield_skeleton/state_machine/StateMachine.gd" id="4_trvyh"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_txl81"]
 [ext_resource type="PackedScene" uid="uid://c7lu666lgum2a" path="res://scripts/state_machine/templates/Idle.tscn" id="5_1fs3e"]
@@ -11,8 +12,14 @@
 [ext_resource type="PackedScene" uid="uid://btc1oha5xmmi4" path="res://scripts/state_machine/templates/Follow.tscn" id="6_ks53y"]
 [ext_resource type="PackedScene" uid="uid://de67wkxwlcnvj" path="res://scripts/state_machine/templates/Dead.tscn" id="7_gbm5l"]
 [ext_resource type="PackedScene" uid="uid://bjvwpc0sp8dw6" path="res://scripts/state_machine/templates/Wander.tscn" id="8_jvna0"]
+[ext_resource type="AudioStream" uid="uid://d3bq8dqyh8pbr" path="res://art/audio/sfx/shield-guard.mp3" id="10_u4h24"]
 [ext_resource type="PackedScene" uid="uid://y5d4aw4xognr" path="res://scripts/state_machine/templates/PreAttack.tscn" id="11_2u2v8"]
+[ext_resource type="AudioStream" uid="uid://dpwp5i8owrn81" path="res://art/audio/sfx/skeleton-death.mp3" id="12_1f77r"]
 [ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="12_b747n"]
+[ext_resource type="AudioStream" uid="uid://bkqly0mjfqjmd" path="res://art/audio/sfx/hammer-strong.mp3" id="14_koc56"]
+[ext_resource type="AudioStream" uid="uid://bowggoonbvfnx" path="res://art/audio/sfx/spear-swing.mp3" id="15_as5pr"]
+[ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="19_i2dlw"]
+[ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="20_iossw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l630o"]
 radius = 6.5
@@ -313,6 +320,11 @@ size = Vector2(46, 57)
 z_index = 1
 collision_layer = 4
 script = ExtResource("1_b6s3v")
+max_speed = 40.0
+points_reward = 200
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_f5hkf")]
+max_health = 350.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -325,10 +337,16 @@ position = Vector2(0, 21)
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -12)
 
+[node name="Shadow" type="Sprite2D" parent="Marker2D"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(-1.2517e-06, 33)
+scale = Vector2(0.52, 0.44)
+texture = ExtResource("3_xkcwu")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(18, -15)
 sprite_frames = SubResource("SpriteFrames_k62eq")
-animation = &"attack_1"
+animation = &"idle"
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("2_k3nhe")]
 visible = false
@@ -342,7 +360,7 @@ shape = SubResource("RectangleShape2D_3xber")
 
 [node name="HitboxAttack_1" parent="Marker2D" instance=ExtResource("4_txl81")]
 visible = false
-damage = 20.0
+damage = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/HitboxAttack_1"]
 position = Vector2(6, 8)
@@ -351,13 +369,11 @@ shape = SubResource("CapsuleShape2D_cppwx")
 
 [node name="HitboxAttack_2" parent="Marker2D" instance=ExtResource("4_txl81")]
 visible = false
-damage = 60.0
+damage = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/HitboxAttack_2"]
 position = Vector2(23, 4.5)
 shape = SubResource("RectangleShape2D_mv8mw")
-
-[node name="HealthComponent" parent="." instance=ExtResource("3_f5hkf")]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animator", "label", "initial_state")]
 script = ExtResource("4_trvyh")
@@ -371,11 +387,15 @@ initial_state = NodePath("Idle")
 [node name="Idle" parent="StateMachine" instance=ExtResource("5_1fs3e")]
 
 [node name="Hit" parent="StateMachine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("6_j4m4j")]
+knockback_multiplier = 1.0
 hurtbox = NodePath("../../Marker2D/Hurtbox")
+hitstun_time = 0.1
+hurt_sfx = ExtResource("10_u4h24")
 
 [node name="Dead" parent="StateMachine" node_paths=PackedStringArray("health_component", "animated_sprite") instance=ExtResource("7_gbm5l")]
 health_component = NodePath("../../HealthComponent")
 animated_sprite = NodePath("../../Marker2D/AnimatedSprite2D")
+death_sfx = ExtResource("12_1f77r")
 
 [node name="Wander" parent="StateMachine" instance=ExtResource("8_jvna0")]
 
@@ -387,6 +407,7 @@ active_frame_start = 2
 active_frame_end = 4
 attack_name = "attack_2"
 range_x = 40
+attack_sfx = ExtResource("14_koc56")
 
 [node name="Attack_1" parent="StateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("12_b747n")]
 hitbox = NodePath("../../../Marker2D/HitboxAttack_1")
@@ -394,6 +415,7 @@ active_frame_start = 2
 active_frame_end = 9
 attack_name = "attack_1"
 range_x = 40
+attack_sfx = ExtResource("15_as5pr")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -403,3 +425,18 @@ offset_right = 26.0
 offset_bottom = -40.0
 text = "Debug"
 metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" parent="." instance=ExtResource("19_i2dlw")]
+offset_left = -11.0
+offset_top = -46.0
+offset_right = 229.0
+offset_bottom = -19.0
+
+[node name="HealthTextOnHit" parent="." instance=ExtResource("20_iossw")]
+offset_left = 14.0
+offset_top = -58.0
+offset_right = 44.0
+offset_bottom = -37.0
+
+[connection signal="health_changed" from="HealthComponent" to="HealthBar" method="_on_health_component_health_changed"]
+[connection signal="health_changed" from="HealthComponent" to="HealthTextOnHit" method="_on_health_component_health_changed"]

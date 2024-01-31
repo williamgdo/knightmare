@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbol30ecitcvb"]
+[gd_scene load_steps=7 format=3 uid="uid://dbol30ecitcvb"]
 
 [ext_resource type="Script" path="res://scenes/components/UI/Control.gd" id="1_a5jad"]
 [ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_eyf8x"]
+[ext_resource type="FontFile" uid="uid://de3gu2fieqpft" path="res://art/fonts/PressStart2P.ttf" id="3_7bgix"]
+[ext_resource type="Texture2D" uid="uid://dhho6xfpfrq8s" path="res://art/characters/player/icon.png" id="3_7p3o5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60ssj"]
+bg_color = Color(0.14902, 0.0196078, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkxjb"]
+bg_color = Color(0, 0.545098, 0.0980392, 1)
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -34,11 +42,13 @@ size_flags_vertical = 0
 [node name="score_label" type="Label" parent="Control/container/score"]
 layout_mode = 2
 theme = ExtResource("2_eyf8x")
-text = "Score: "
+theme_override_font_sizes/font_size = 21
+text = "Pontos: "
 
 [node name="score_counter" type="Label" parent="Control/container/score"]
 layout_mode = 2
 theme = ExtResource("2_eyf8x")
+theme_override_font_sizes/font_size = 21
 text = "0"
 
 [node name="wave" type="HBoxContainer" parent="Control/container"]
@@ -49,9 +59,35 @@ size_flags_vertical = 8
 [node name="wave_label" type="Label" parent="Control/container/wave"]
 layout_mode = 2
 theme = ExtResource("2_eyf8x")
+theme_override_font_sizes/font_size = 21
 text = "Wave: "
 
 [node name="wave_counter" type="Label" parent="Control/container/wave"]
 layout_mode = 2
 theme = ExtResource("2_eyf8x")
+theme_override_font_sizes/font_size = 21
 text = "1"
+
+[node name="HP" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/HP"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 52.0
+offset_right = 348.0
+offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("3_7bgix")
+theme_override_styles/background = SubResource("StyleBoxFlat_60ssj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fkxjb")
+max_value = 250.0
+step = 1.0
+value = 250.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/HP"]
+position = Vector2(74, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("3_7p3o5")

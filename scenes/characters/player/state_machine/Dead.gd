@@ -1,6 +1,7 @@
 extends State
 
 @onready var despawn_timer: Timer = $DespawnTimer
+@onready var death_sound = $DeathSound
 
 
 func _on_health_component_died(_health_update: HealthUpdate):
@@ -9,6 +10,7 @@ func _on_health_component_died(_health_update: HealthUpdate):
 
 func on_enter_state():
 	animator.play("dead")
+	death_sound.play()
 
 
 func _on_animated_sprite_2d_animation_finished():

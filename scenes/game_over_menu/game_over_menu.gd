@@ -2,6 +2,9 @@ extends CanvasLayer
 
 @export var player: CharacterBody2D
 @onready var restart_btn = $MarginContainer/VBoxContainer2/VBoxContainer/RestartBtn
+@onready var music = $SadMusic
+@onready var game_over_sfx = $GameOverSFX
+
 var mainMenuScene = load("res://scenes/main_menu/MainMenu.tscn")
 
 func _ready():
@@ -26,13 +29,20 @@ func _unhandled_input(event):
 
 func _on_quit_btn_pressed():
 #	get_tree().quit()
+	Global.reset()
 	get_tree().change_scene_to_packed(mainMenuScene)
 
 
 func _on_restart_btn_pressed():
+	Global.reset()
 	get_tree().reload_current_scene()
 
 
 func _on_health_component_died(_update):
+	await get_tree().create_timer(1.5).timeout
+	game_over_sfx.play()
 	visible = true
 	restart_btn.grab_focus()
+	
+	await get_tree().create_timer(4.0).timeout
+	music.play()

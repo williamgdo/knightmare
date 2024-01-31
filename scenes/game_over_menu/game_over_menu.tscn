@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0e4n4sslg6r8"]
+[gd_scene load_steps=5 format=3 uid="uid://c0e4n4sslg6r8"]
 
 [ext_resource type="Script" path="res://scenes/game_over_menu/game_over_menu.gd" id="1_0t8jf"]
 [ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_lc7d3"]
+[ext_resource type="AudioStream" uid="uid://du2w26rxcbkji" path="res://art/audio/music/game-over.mp3" id="3_im8q5"]
+[ext_resource type="AudioStream" uid="uid://dhcdltdiei5ec" path="res://art/audio/sfx/game-over-sfx.mp3" id="4_flbop"]
 
 [node name="GameOverMenu" type="CanvasLayer"]
 process_mode = 3
@@ -13,7 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.254902)
+color = Color(0, 0, 0, 0.52549)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -49,13 +51,22 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("2_lc7d3")
 theme_override_font_sizes/font_size = 35
-text = "Restart"
+text = "Reiniciar"
 
 [node name="QuitBtn" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_lc7d3")
+theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 35
-text = "Quit To Main Menu"
+text = "Sair para o 
+menu principal"
+
+[node name="SadMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_im8q5")
+
+[node name="GameOverSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_flbop")
+volume_db = -10.0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/RestartBtn" to="." method="_on_restart_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg3v63sias5pu"]
+
+[ext_resource type="Script" path="res://scenes/main_menu/MainMenu.gd" id="1_bxgo3"]
+[ext_resource type="FontFile" uid="uid://de3gu2fieqpft" path="res://art/fonts/PressStart2P.ttf" id="1_nox00"]
+[ext_resource type="Theme" uid="uid://bub0krrjkgjvw" path="res://art/theme.tres" id="2_0c6sy"]
+[ext_resource type="PackedScene" uid="uid://w2xsvx06pkhx" path="res://scenes/level/level.tscn" id="2_yvh4r"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bxgo3")
+mainGameScene = ExtResource("2_yvh4r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.00784314, 0.0117647, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_nox00")
+theme_override_font_sizes/font_size = 93
+text = "Knightmare"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="StartBtn" type="Button" parent="MarginContainer/Container/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_neighbor_top = NodePath("../QuitBtn")
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_0c6sy")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="QuitBtn" type="Button" parent="MarginContainer/Container/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_neighbor_bottom = NodePath("../StartBtn")
+theme = ExtResource("2_0c6sy")
+theme_override_font_sizes/font_size = 40
+text = "Quit Game"
+
+[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Container/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

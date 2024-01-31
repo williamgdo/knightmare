@@ -1,21 +1,26 @@
-[gd_scene load_steps=68 format=3 uid="uid://c4ksbahx7vc75"]
+[gd_scene load_steps=73 format=3 uid="uid://c4ksbahx7vc75"]
 
 [ext_resource type="Script" path="res://scenes/characters/slime/slime.gd" id="1_5fq00"]
 [ext_resource type="Texture2D" uid="uid://dxc3l38fcmeg4" path="res://art/characters/slime/full-sheet.png" id="1_dmwfk"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="2_7a4qv"]
+[ext_resource type="Texture2D" uid="uid://b4divak62ca0s" path="res://art/particles/shadows.png" id="2_bc0as"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="2_snh2w"]
 [ext_resource type="Script" path="res://scenes/characters/slime/state_machine/SlimeStateMachine.gd" id="3_683jq"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="3_ydaf6"]
 [ext_resource type="PackedScene" uid="uid://c7lu666lgum2a" path="res://scripts/state_machine/templates/Idle.tscn" id="7_3x3rt"]
 [ext_resource type="PackedScene" uid="uid://c1hfv0vpiq03n" path="res://scripts/state_machine/templates/Hit.tscn" id="8_womk4"]
 [ext_resource type="PackedScene" uid="uid://de67wkxwlcnvj" path="res://scripts/state_machine/templates/Dead.tscn" id="9_ducmr"]
+[ext_resource type="AudioStream" uid="uid://csvlqrc7m7lwx" path="res://art/audio/sfx/slime-hit.mp3" id="9_h5bg5"]
 [ext_resource type="PackedScene" uid="uid://bjvwpc0sp8dw6" path="res://scripts/state_machine/templates/Wander.tscn" id="10_yfeti"]
+[ext_resource type="AudioStream" uid="uid://doeth746irvth" path="res://art/audio/sfx/slime-death.mp3" id="11_b8vb1"]
 [ext_resource type="PackedScene" uid="uid://btc1oha5xmmi4" path="res://scripts/state_machine/templates/Follow.tscn" id="11_jy4hg"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="12_dj1hu"]
 [ext_resource type="PackedScene" uid="uid://y5d4aw4xognr" path="res://scripts/state_machine/templates/PreAttack.tscn" id="12_thbsa"]
 [ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="13_axl4k"]
 [ext_resource type="Script" path="res://scenes/characters/slime/state_machine/Attack_2.gd" id="14_e7ytj"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="14_wgi2i"]
+[ext_resource type="AudioStream" uid="uid://dos8xo0c2cn5w" path="res://art/audio/sfx/slime-expand.mp3" id="16_46fb1"]
+[ext_resource type="AudioStream" uid="uid://jw0th7a4hdox" path="res://art/audio/sfx/slime-jump.mp3" id="18_hunpw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oumoh"]
 atlas = ExtResource("1_dmwfk")
@@ -389,16 +394,23 @@ size = Vector2(23, 12)
 z_index = 1
 collision_layer = 4
 script = ExtResource("1_5fq00")
+max_speed = 110.0
 
 [node name="FeetPosition" type="Marker2D" parent="."]
 position = Vector2(0, 6)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 
+[node name="Shadow" type="Sprite2D" parent="Marker2D"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(5.96046e-08, 6)
+scale = Vector2(0.85, 0.64)
+texture = ExtResource("2_bc0as")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(3, -42)
 sprite_frames = SubResource("SpriteFrames_swotu")
-animation = &"attack_2"
+animation = &"attack_3"
 
 [node name="Hurtbox" parent="Marker2D" node_paths=PackedStringArray("health_component") instance=ExtResource("2_7a4qv")]
 visible = false
@@ -449,12 +461,15 @@ initial_state = NodePath("Idle")
 [node name="Idle" parent="SlimeStateMachine" instance=ExtResource("7_3x3rt")]
 
 [node name="Hit" parent="SlimeStateMachine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("8_womk4")]
+knockback_multiplier = 8.0
 hurtbox = NodePath("../../Marker2D/Hurtbox")
+hurt_sfx = ExtResource("9_h5bg5")
 can_move = false
 
 [node name="Dead" parent="SlimeStateMachine" node_paths=PackedStringArray("health_component", "animated_sprite") instance=ExtResource("9_ducmr")]
 health_component = NodePath("../../HealthComponent")
 animated_sprite = NodePath("../../Marker2D/AnimatedSprite2D")
+death_sfx = ExtResource("11_b8vb1")
 can_move = false
 
 [node name="Wander" parent="SlimeStateMachine" instance=ExtResource("10_yfeti")]
@@ -469,6 +484,7 @@ active_frame_start = 6
 active_frame_end = 8
 attack_name = "attack_1"
 range_x = 45
+attack_sfx = ExtResource("16_46fb1")
 can_move = false
 
 [node name="Attack_2" type="Node" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox")]
@@ -478,7 +494,11 @@ active_frame_start = 3
 active_frame_end = 6
 attack_name = "attack_2"
 range_x = 80
+attack_sfx = ExtResource("18_hunpw")
 can_move = false
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="SlimeStateMachine/PreAttack/Attack_2"]
+bus = &"SFX"
 
 [node name="Attack_3" parent="SlimeStateMachine/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("13_axl4k")]
 hitbox = NodePath("../../../Marker2D/Attack_3_Hitbox")
@@ -486,6 +506,7 @@ active_frame_start = 3
 active_frame_end = 5
 attack_name = "attack_3"
 range_x = 20
+attack_sfx = ExtResource("16_46fb1")
 can_move = false
 
 [node name="HealthBar" parent="." instance=ExtResource("12_dj1hu")]

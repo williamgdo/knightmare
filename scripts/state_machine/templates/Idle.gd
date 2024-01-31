@@ -2,7 +2,7 @@ extends State
 
 
 @export var stay_idle: bool = false
-@export var range_to_follow: int = 300
+@export var range_to_follow: int = 3000
 
 
 func on_enter_state():

@@ -3,6 +3,7 @@ extends AttackTemplate
 @export var dash_speed: int = 120
 
 func on_enter_state():
+	sound.play()
 	animator.play(attack_data.name)
 	animator.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
 	

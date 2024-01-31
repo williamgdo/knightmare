@@ -1,10 +1,11 @@
-[gd_scene load_steps=52 format=3 uid="uid://cvxv6citdkxo8"]
+[gd_scene load_steps=56 format=3 uid="uid://cvxv6citdkxo8"]
 
 [ext_resource type="Script" path="res://scenes/characters/spear_skeleton/spear_skeleton.gd" id="1_5txbf"]
 [ext_resource type="PackedScene" uid="uid://bfuof21o1dsiw" path="res://scenes/components/Health/Health.tscn" id="1_t55th"]
 [ext_resource type="Script" path="res://scenes/characters/spear_skeleton/CollisionShape2D.gd" id="2_cf855"]
 [ext_resource type="Texture2D" uid="uid://cro16asgfhfjm" path="res://art/characters/spear/full-sheet.png" id="2_y03rc"]
 [ext_resource type="PackedScene" uid="uid://cnmifvpfdhy1o" path="res://scenes/components/Hurtbox/Hurtbox.tscn" id="3_nw4r6"]
+[ext_resource type="Texture2D" uid="uid://b4divak62ca0s" path="res://art/particles/shadows.png" id="4_f8hip"]
 [ext_resource type="PackedScene" uid="uid://bt4l8rjjmlsyq" path="res://scenes/components/Hitbox/Hitbox.tscn" id="4_mvyvw"]
 [ext_resource type="PackedScene" uid="uid://bd4ed6421phhl" path="res://scenes/components/UI/health_bar.tscn" id="5_okmnl"]
 [ext_resource type="PackedScene" uid="uid://bkjyx174pu2f1" path="res://scenes/components/UI/damage_numbers.tscn" id="6_eyrsc"]
@@ -12,10 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://c7lu666lgum2a" path="res://scripts/state_machine/templates/Idle.tscn" id="10_m4dnk"]
 [ext_resource type="PackedScene" uid="uid://de67wkxwlcnvj" path="res://scripts/state_machine/templates/Dead.tscn" id="11_gxl0e"]
 [ext_resource type="PackedScene" uid="uid://c1hfv0vpiq03n" path="res://scripts/state_machine/templates/Hit.tscn" id="12_67idt"]
+[ext_resource type="AudioStream" uid="uid://dpwp5i8owrn81" path="res://art/audio/sfx/skeleton-death.mp3" id="12_rd7v1"]
 [ext_resource type="PackedScene" uid="uid://btc1oha5xmmi4" path="res://scripts/state_machine/templates/Follow.tscn" id="13_r6wkw"]
+[ext_resource type="AudioStream" uid="uid://s41q88da0ded" path="res://art/audio/sfx/skeleton-hurt.mp3" id="14_85mrw"]
 [ext_resource type="PackedScene" uid="uid://bjvwpc0sp8dw6" path="res://scripts/state_machine/templates/Wander.tscn" id="14_p7kdo"]
 [ext_resource type="PackedScene" uid="uid://y5d4aw4xognr" path="res://scripts/state_machine/templates/PreAttack.tscn" id="15_b0cbr"]
 [ext_resource type="PackedScene" uid="uid://cbqkwfquvh6f7" path="res://scripts/state_machine/templates/Attack.tscn" id="16_6lgsw"]
+[ext_resource type="AudioStream" uid="uid://bowggoonbvfnx" path="res://art/audio/sfx/spear-swing.mp3" id="19_ycauo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_medhk"]
 size = Vector2(15, 16)
@@ -289,7 +293,12 @@ size = Vector2(70.5, 28.5)
 z_index = 1
 collision_layer = 4
 script = ExtResource("1_5txbf")
+max_speed = 70.0
+points_reward = 300
 metadata/_edit_group_ = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_t55th")]
+max_health = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -301,6 +310,12 @@ script = ExtResource("2_cf855")
 position = Vector2(0, 36)
 
 [node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="Marker2D"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(-0.500001, 35)
+scale = Vector2(0.58, 0.44)
+texture = ExtResource("4_f8hip")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(18, -12)
@@ -324,8 +339,6 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Attack_1_Hitbox"]
 position = Vector2(43.75, 9.25)
 shape = SubResource("RectangleShape2D_6mmdp")
-
-[node name="HealthComponent" parent="." instance=ExtResource("1_t55th")]
 
 [node name="HealthBar" parent="." instance=ExtResource("5_okmnl")]
 offset_left = -12.0
@@ -367,10 +380,12 @@ initial_state = NodePath("Idle")
 [node name="Dead" parent="SpearSkelSM" node_paths=PackedStringArray("health_component", "animated_sprite") instance=ExtResource("11_gxl0e")]
 health_component = NodePath("../../HealthComponent")
 animated_sprite = NodePath("../../Marker2D/AnimatedSprite2D")
+death_sfx = ExtResource("12_rd7v1")
 can_move = false
 
 [node name="Hit" parent="SpearSkelSM" node_paths=PackedStringArray("hurtbox") instance=ExtResource("12_67idt")]
 hurtbox = NodePath("../../Marker2D/Hurtbox")
+hurt_sfx = ExtResource("14_85mrw")
 can_move = false
 
 [node name="Follow" parent="SpearSkelSM" instance=ExtResource("13_r6wkw")]
@@ -385,6 +400,7 @@ active_frame_start = 2
 active_frame_end = 5
 attack_name = "attack_1"
 range_x = 60
+attack_sfx = ExtResource("19_ycauo")
 can_move = false
 
 [node name="Attack_2" parent="SpearSkelSM/PreAttack" node_paths=PackedStringArray("hitbox") instance=ExtResource("16_6lgsw")]
@@ -393,6 +409,7 @@ active_frame_start = 2
 active_frame_end = 8
 attack_name = "attack_2"
 range_x = 60
+attack_sfx = ExtResource("19_ycauo")
 can_move = false
 
 [connection signal="died" from="HealthComponent" to="CollisionShape2D" method="_on_health_component_died"]

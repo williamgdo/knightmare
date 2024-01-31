@@ -11,6 +11,10 @@ const Z_INDEX_RANGE = 8
 #func _ready():
 #	Engine.max_fps = 15
 
+func reset():
+	wave = 1
+	score = 0
+
 
 func instantiate_node(node, position: Vector2, parent):
 	if root_node != null:
